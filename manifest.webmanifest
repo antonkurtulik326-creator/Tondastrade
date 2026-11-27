@@ -1,30 +1,17 @@
 {
-  "name": "Trade Radar Signature v11 v9",
+  "name": "Trade Radar – nákupné signály",
   "short_name": "Trade Radar",
-  "description": "Technické signály pre krypto, akcie, ETF a forex. LONG / SHORT / ČAKAJ, riadenie rizika a kontext trhu.",
+  "description": "Skener nákupných signálov s obchodným plánom a overením na histórii.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0B0D12",
-  "theme_color": "#0B0D12",
+  "background_color": "#0a0b0e",
+  "theme_color": "#0a0b0e",
   "lang": "sk",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ]
 }
