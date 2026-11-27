@@ -197,6 +197,15 @@ canvas#eq{height:200px}
 .trade .tm{color:var(--muted);font-size:12px}
 .verdictbt{margin:14px 0 0;padding:10px 14px;border-radius:12px;background:var(--surface2);font-size:13px}
 
+/* multi-timeframe backtest */
+.mtf-table{width:100%;border-collapse:collapse;min-width:680px;font-size:12px}
+.mtf-table th,.mtf-table td{padding:10px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.mtf-table th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.04em}
+.mtf-table th:first-child,.mtf-table td:first-child{text-align:left}
+.mtf-table td:first-child{font-weight:700;color:var(--cyan)}
+.mtf-table .good{color:var(--lime)} .mtf-table .bad{color:var(--red)}
+.mtf-foot{font-size:11px;color:var(--muted);margin-top:8px}
+
 /* dôvody */
 ul.why{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 ul.why li{display:grid;grid-template-columns:48px 1fr;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:baseline}
@@ -307,6 +316,19 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     <div class="verdictbt" id="btVerdict"></div>
     <canvas id="eq" style="margin-top:14px" role="img" aria-label="Vývoj účtu pri obchodovaní podľa signálov"></canvas>
     <div class="trades" id="trades"></div>
+  </section>
+
+  <section class="panel glow" id="mtfPanel">
+    <h2>Multi-Timeframe Backtest <span class="sub">porovnanie 15 min · 1 hod · 4 hod</span></h2>
+    <p class="note" style="margin-top:0">Otestuje rovnaký symbol a rovnaké pravidlá na troch časových rámcoch. Každý timeframe sa vyhodnotí samostatne; výsledky nie sú priamo porovnateľné, ak zdroj poskytuje rozdielne historické obdobia.</p>
+    <div class="actions">
+      <button class="btn" id="mtfRun" type="button">Spustiť porovnávací backtest</button>
+      <span class="muted" id="mtfStatus" aria-live="polite">Zatiaľ nebol spustený.</span>
+    </div>
+    <div class="scroll" id="mtfResults" style="margin-top:12px">
+      <p class="note">Vyber live zdroj dát a symbol, potom spusti porovnanie. Pri vzorových dátach sa použije simulácia.</p>
+    </div>
+    <p class="note">Spoľahlivejšie hodnotenie vyžaduje aspoň 100 obchodov na timeframe. Rozdelenie 70/30 znamená prvých 70 % sviečok na vývoj a posledných 30 % na nezávislé overenie. Náklady zahŕňajú zadané percento spreadu a poplatkov; swap/financovanie CFD nie je v tomto backteste modelované.</p>
   </section>
 
   <section class="panel">
@@ -1119,6 +1141,68 @@ function renderBacktest(res){
   });
   $('trades').innerHTML=html;
 }
+function mtfCell(v,digits){
+  if(v===Infinity)return '∞';
+  if(v==null||!isFinite(v))return '—';
+  return Number(v).toFixed(digits==null?2:digits);
+}
+function mtfStatsFor(bars,mode){
+  var X=prep(bars,mode),raw=backtest(X),c=costPct()/100;
+  var net=raw.map(function(t){return {side:t.side,ei:t.ei,xi:t.xi,ex:t.ex,R:t.R-c*t.er};});
+  var st=btStats(net),N=bars.length,split=START+Math.floor((N-START)*0.7);
+  var is=btStats(net.filter(function(t){return t.ei<split;}));
+  var os=btStats(net.filter(function(t){return t.ei>=split;}));
+  var eq=equityCurve(net,10000,1);
+  return {mode:mode,label:MODES[mode].label,bars:N,trades:st.n,wr:st.wr,pf:st.pf,avgR:st.avgR,dd:eq.dd,is:is,os:os};
+}
+function renderMtfRows(rows){
+  var html='<table class="mtf-table"><thead><tr><th>Timeframe</th><th>Sviečky</th><th>Obchody</th><th>Win rate</th><th>Profit factor</th><th>Priem. R</th><th>Max. DD</th><th>OOS obchody</th><th>OOS priem. R</th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    var enough=r.trades>=100,profitable=r.avgR>0&&r.pf>=1;
+    html+='<tr><td>'+esc(r.label)+'</td><td>'+r.bars+'</td><td class="'+(enough?'good':'bad')+'">'+r.trades+(enough?'':' · málo')+'</td>'+
+      '<td>'+mtfCell(r.wr*100,1)+' %</td><td class="'+(r.pf>=1?'good':'bad')+'">'+mtfCell(r.pf)+'</td>'+
+      '<td class="'+(r.avgR>=0?'good':'bad')+'">'+(r.avgR>=0?'+':'')+mtfCell(r.avgR)+'</td>'+
+      '<td>'+mtfCell(r.dd*100,1)+' %</td><td>'+r.os.n+'</td>'+
+      '<td class="'+(r.os.avgR>=0?'good':'bad')+'">'+(r.os.n?(r.os.avgR>=0?'+':'')+mtfCell(r.os.avgR):'—')+'</td></tr>';
+  });
+  html+='</tbody></table><p class="mtf-foot">„Málo“ = menej ako 100 obchodov, výsledok má nízku štatistickú výpovednú hodnotu. OOS = posledných 30 % historických sviečok. Drawdown je počítaný pri modelovom účte 10 000 a riziku 1 % na obchod.</p>';
+  $('mtfResults').innerHTML=html;
+}
+$('mtfRun').addEventListener('click',function(){
+  var btn=$('mtfRun'),status=$('mtfStatus'),sym=state.sym,src=state.src,custom=state.custom;
+  if(sym==='CUSTOM'||custom){
+    status.textContent='Multi-timeframe porovnanie vyžaduje samostatné dáta pre každý timeframe. Vlastný CSV súbor obsahuje iba jeden interval.';
+    return;
+  }
+  var S=SRC[src];
+  if(!S||!S.fetch){status.textContent='Vyber live zdroj alebo použi vzorové dáta.';return;}
+  btn.disabled=true;status.textContent='Načítavam historické dáta pre 15 min, 1 hod a 4 hod…';
+  var modes=['scalp','day','swing'],rows=[],idx=0;
+  function next(){
+    if(idx>=modes.length){
+      if(src!==state.src||sym!==state.sym){status.textContent='Výber symbolu alebo zdroja sa počas testu zmenil. Spusti test znova.';btn.disabled=false;return;}
+      renderMtfRows(rows);status.textContent='Hotovo · '+sym+' · '+S.label+' · náklady '+costPct()+' %';
+      btn.disabled=false;return;
+    }
+    var mode=modes[idx++];
+    var task;
+    if(src==='sample'){
+      var sy=SYMS.filter(function(x){return x.s===sym;})[0]||{s:sym,n:sym,p:100,vol:0.02,drift:0.0005,v:100000};
+      task=Promise.resolve({bars:genSample(sy,mode)});
+    }else{
+      task=S.spacing?enqueue(function(){return S.fetch(sym,mode);},S.spacing,false):S.fetch(sym,mode);
+    }
+    task.then(function(result){
+      if(!result||!result.bars||result.bars.length<START+30)throw new Error('Nedostatok historických dát pre '+MODES[mode].label+'.');
+      rows.push(mtfStatsFor(result.bars,mode));next();
+    }).catch(function(err){
+      status.textContent='Nepodarilo sa načítať '+MODES[mode].label+': '+(err&&err.message?err.message:'chyba dátového zdroja');
+      btn.disabled=false;
+    });
+  }
+  next();
+});
+
 function renderReasons(res){
   $('why').innerHTML=res.reasons.map(function(r){
     var col=r.pts>0?'pos':r.pts<0?'neg':'muted';
