@@ -220,6 +220,47 @@ textarea{font-family:var(--font-mono);font-size:12px;color:var(--fg);background:
 .err{color:var(--red);font-size:12.5px;margin:8px 0 0}
 footer{font-size:12px;color:var(--muted);max-width:80ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tk:hover{transform:none}}
+
+.mtf-state{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}
+.mtf-card{background:var(--surface2);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
+.mtf-card small{display:block;color:var(--muted);font-size:10px;letter-spacing:.05em}
+.mtf-card b{display:block;margin-top:5px;font-family:var(--font-mono);font-size:14px;overflow-wrap:anywhere}
+.mtf-card.good{border-color:color-mix(in srgb,var(--lime) 55%,var(--line))}.mtf-card.good b{color:var(--lime)}
+.mtf-card.bad{border-color:color-mix(in srgb,var(--red) 55%,var(--line))}.mtf-card.bad b{color:var(--red)}
+.mtf-card.wait{border-color:color-mix(in srgb,var(--yellow) 55%,var(--line))}.mtf-card.wait b{color:var(--yellow)}
+.mtf-table{width:100%;border-collapse:collapse;min-width:760px;font-size:12px}
+.mtf-table th,.mtf-table td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.mtf-table th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.mtf-table th:first-child,.mtf-table td:first-child{text-align:left}
+.mtf-table td:first-child{font-weight:700;color:var(--cyan);white-space:normal;min-width:170px}
+.mtf-table .good{color:var(--lime)}.mtf-table .bad{color:var(--red)}
+.mtf-foot{font-size:11px;color:var(--muted);margin-top:8px}
+@media(max-width:700px){.mtf-state{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* --- Professional workspace navigation --- */
+.workspace-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;background:rgba(18,20,43,.88);border:1px solid var(--line);border-radius:16px;position:sticky;top:8px;z-index:30;backdrop-filter:blur(14px)}
+.workspace-nav button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);font:600 13px var(--font-body);padding:11px 8px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;transition:background .18s,border-color .18s,color .18s}
+.workspace-nav button .nav-icon{font-size:16px;line-height:1}
+.workspace-nav button[aria-selected="true"]{background:linear-gradient(135deg,rgba(39,243,255,.16),rgba(139,92,255,.16));border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));color:var(--fg);box-shadow:inset 0 0 0 1px rgba(39,243,255,.06)}
+.workspace-nav button:hover{color:var(--fg);background:var(--surface2)}
+.tab-view{display:flex;flex-direction:column;gap:18px;min-width:0;animation:tabIn .18s ease-out}
+.tab-view[hidden]{display:none!important}
+@keyframes tabIn{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.view-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.view-heading h2{font-size:19px;margin:0}
+.view-heading p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.panel{padding:clamp(15px,2.2vw,22px);border-radius:17px}
+.two{gap:14px}
+@media(max-width:640px){
+ .workspace-nav{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:5px;top:4px}
+ .workspace-nav button{font-size:11px;padding:10px 3px;gap:4px;flex-direction:column}
+ .workspace-nav button .nav-icon{font-size:17px}
+ .top{align-items:flex-start}
+ .top h1{font-size:27px}
+ .tab-view{gap:13px}
+}
+
 </style>
 
 </head><body>
@@ -244,7 +285,15 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   <section class="board" id="tickers" aria-label="Signály podľa zoznamu obľúbených"></section>
   <div class="bpend" id="bpend"></div>
   <div class="banner" id="dataBanner"></div>
+  <div class="workspace-nav" role="tablist" aria-label="Hlavná navigácia">
+    <button type="button" role="tab" id="tabBtn-overview" aria-controls="tab-overview" aria-selected="true"><span class="nav-icon">▦</span><span>Prehľad</span></button>
+    <button type="button" role="tab" id="tabBtn-strategy" aria-controls="tab-strategy" aria-selected="false"><span class="nav-icon">⌁</span><span>MTF stratégia</span></button>
+    <button type="button" role="tab" id="tabBtn-backtest" aria-controls="tab-backtest" aria-selected="false"><span class="nav-icon">▥</span><span>Backtest</span></button>
+    <button type="button" role="tab" id="tabBtn-settings" aria-controls="tab-settings" aria-selected="false"><span class="nav-icon">⚙</span><span>Nastavenia</span></button>
+  </div>
 
+  <div class="tab-view" id="tab-settings" role="tabpanel" aria-labelledby="tabBtn-settings" hidden>
+    <div class="view-heading"><div><h2>Nastavenia a dáta</h2><p>Zdroje cien, upozornenia a vlastné historické dáta</p></div></div>
   <details class="panel" id="srcPanel">
     <summary><b>Dátový zdroj</b> <span class="muted" id="srcTitle"></span></summary>
     <div class="seg sm" id="srcSeg" role="group" aria-label="Dátový zdroj" style="margin-top:12px"></div>
@@ -267,7 +316,21 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     <label class="chk"><input type="checkbox" id="alWake"> Nevypínať obrazovku, kým je appka otvorená</label>
     <p class="note" id="alNote"></p>
   </details>
+  <section class="panel">
+    <h2>Vlastné trhové dáta <span class="sub">CSV so stĺpcami Date, Open, High, Low, Close, Volume</span></h2>
+    <p class="muted" style="margin:0 0 10px">Ak nechceš live dáta, môžeš vložiť vlastný export z Yahoo Finance, TradingView alebo od brokera.</p>
+    <textarea id="csvText" placeholder="Date,Open,High,Low,Close,Volume&#10;2026-11-24,618.2,622.9,616.0,621.4,48123000" aria-label="CSV dáta"></textarea>
+    <div class="actions">
+      <label class="btn ghost" for="csvFile" style="cursor:pointer">Vybrať súbor</label>
+      <input id="csvFile" type="file" accept=".csv,.txt,text/csv" style="position:absolute;opacity:0;width:1px;height:1px">
+      <button class="btn" id="csvLoad" type="button">Analyzovať dáta</button>
+      <button class="btn ghost" id="csvClear" type="button">Späť na hlavné dáta</button>
+    </div>
+    <p class="err" id="csvMsg" role="status"></p>
+  </section>
+  </div>
 
+  <div class="tab-view" id="tab-overview" role="tabpanel" aria-labelledby="tabBtn-overview">
   <div class="two">
     <section class="panel glow" id="signal"></section>
     <section class="panel glow">
@@ -309,6 +372,10 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     <canvas id="chart" role="img" aria-label="Sviečkový graf s EMA, Bollingerovými pásmami, objemom, RSI a MACD"></canvas>
   </section>
 
+  </div>
+
+  <div class="tab-view" id="tab-backtest" role="tabpanel" aria-labelledby="tabBtn-backtest" hidden>
+    <div class="view-heading"><div><h2>Výkonnosť stratégie</h2><p>Historické výsledky, kontrola robustnosti a dôvody signálu</p></div></div>
   <section class="panel glow">
     <h2>Backtest signálov <span class="sub" id="btSub"></span></h2>
     <div class="tiles" id="btTiles" style="margin-top:0"></div>
@@ -316,19 +383,6 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     <div class="verdictbt" id="btVerdict"></div>
     <canvas id="eq" style="margin-top:14px" role="img" aria-label="Vývoj účtu pri obchodovaní podľa signálov"></canvas>
     <div class="trades" id="trades"></div>
-  </section>
-
-  <section class="panel glow" id="mtfPanel">
-    <h2>Multi-Timeframe Backtest <span class="sub">porovnanie 15 min · 1 hod · 4 hod</span></h2>
-    <p class="note" style="margin-top:0">Otestuje rovnaký symbol a rovnaké pravidlá na troch časových rámcoch. Každý timeframe sa vyhodnotí samostatne; výsledky nie sú priamo porovnateľné, ak zdroj poskytuje rozdielne historické obdobia.</p>
-    <div class="actions">
-      <button class="btn" id="mtfRun" type="button">Spustiť porovnávací backtest</button>
-      <span class="muted" id="mtfStatus" aria-live="polite">Zatiaľ nebol spustený.</span>
-    </div>
-    <div class="scroll" id="mtfResults" style="margin-top:12px">
-      <p class="note">Vyber live zdroj dát a symbol, potom spusti porovnanie. Pri vzorových dátach sa použije simulácia.</p>
-    </div>
-    <p class="note">Spoľahlivejšie hodnotenie vyžaduje aspoň 100 obchodov na timeframe. Rozdelenie 70/30 znamená prvých 70 % sviečok na vývoj a posledných 30 % na nezávislé overenie. Náklady zahŕňajú zadané percento spreadu a poplatkov; swap/financovanie CFD nie je v tomto backteste modelované.</p>
   </section>
 
   <section class="panel">
@@ -345,19 +399,28 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
       <p>Nič z toho nezaručuje budúci výsledok.</p>
     </details>
   </section>
+  </div>
 
-  <section class="panel">
-    <h2>Vlastné trhové dáta <span class="sub">CSV so stĺpcami Date, Open, High, Low, Close, Volume</span></h2>
-    <p class="muted" style="margin:0 0 10px">Ak nechceš live dáta, môžeš vložiť vlastný export z Yahoo Finance, TradingView alebo od brokera.</p>
-    <textarea id="csvText" placeholder="Date,Open,High,Low,Close,Volume&#10;2026-11-24,618.2,622.9,616.0,621.4,48123000" aria-label="CSV dáta"></textarea>
+  <div class="tab-view" id="tab-strategy" role="tabpanel" aria-labelledby="tabBtn-strategy" hidden>
+    <div class="view-heading"><div><h2>Multi-timeframe stratégia</h2><p>4H určuje smer · 1H hľadá setup · 15M časuje vstup</p></div></div>
+  <section class="panel glow" id="mtfPanel">
+    <h2>Multi-Timeframe Trading System <span class="sub">4H trend → 1H setup → 15M vstup</span></h2>
+    <p class="note" style="margin-top:0">Toto je preferovaný obchodný plán, primárne pre 24/7 krypto trhy. 4H určuje smer trhu, 1H hľadá setup a 15M potvrdzuje načasovanie. Rozdielne signály nie sú automaticky chyba, ale vstup sa povolí len pri súlade všetkých troch úrovní. Pri akciách a ETF treba pred použitím správne zarovnať burzové obchodné seansy.</p>
+    <div class="mtf-state" id="mtfDecision"><div class="mtf-card"><small>4H · HLAVNÝ TREND</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>1H · SETUP</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>15M · POTVRDENIE</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>VÝSLEDNÉ ROZHODNUTIE</small><b>Spusti analýzu</b></div></div>
     <div class="actions">
-      <label class="btn ghost" for="csvFile" style="cursor:pointer">Vybrať súbor</label>
-      <input id="csvFile" type="file" accept=".csv,.txt,text/csv" style="position:absolute;opacity:0;width:1px;height:1px">
-      <button class="btn" id="csvLoad" type="button">Analyzovať dáta</button>
-      <button class="btn ghost" id="csvClear" type="button">Späť na hlavné dáta</button>
+      <button class="btn" id="mtfRun" type="button">Analyzovať MTF systém</button>
+      <span class="muted" id="mtfStatus" aria-live="polite">Zatiaľ nebol spustený.</span>
     </div>
-    <p class="err" id="csvMsg" role="status"></p>
+    <h3 style="margin-top:18px;font-size:14px">Porovnanie troch obchodných prístupov</h3>
+    <div class="scroll" id="mtfResults" style="margin-top:8px">
+      <p class="note">Spusti analýzu. Všetky tri varianty budú testované na rovnakom historickom úseku odvodenom z jedného radu 15M sviečok.</p>
+    </div>
+    <p class="note">Variant A: samostatný 1H signál. Variant B: 1H signál iba v smere 4H trendu. Variant C: 4H trend + 1H setup + 15M potvrdenie. Všetky používajú 1H ATR pre SL, cieľ 2R, rovnaké náklady a rovnaký testovací interval. Pri menej ako 100 obchodoch sú štatistiky orientačné. CFD swap/financovanie nie je modelované.</p>
   </section>
+
+
+
+  </div>
 
   <footer>Edukačný nástroj, nie investičné odporúčanie. Signály vychádzajú iba z technických indikátorov a minulé výsledky budúcnosť nezaručujú. Obchodovanie s pákou môže priniesť stratu vyššiu ako vklad v neregulovaných podmienkach, preto si over limity a ochranu u svojho brokera. Dáta z Yahoo Finance sú bezplatné, neoficiálne a môžu mať oneskorenie.</footer>
 </div>
@@ -418,7 +481,7 @@ function genSample(sym,mode){
     var h=Math.max(o,c)*(1+Math.abs(gauss(r))*w);
     var l=Math.min(o,c)*(1-Math.abs(gauss(r))*w);
     var v=Math.round(sym.v*(0.6+r()*0.8)*(1+Math.abs(ret)/sd*0.4)/Math.max(bpd,1));
-    bars.push({t:fmt(new Date(now-(N-1-i)*m.step*60000),m.step),o:o,h:h,l:l,c:c,v:v});
+    var ts=now-(N-1-i)*m.step*60000;bars.push({t:fmt(new Date(ts),m.step),ts:ts,o:o,h:h,l:l,c:c,v:v});
     p=c;
   }
   var k=sym.p/p;
@@ -473,7 +536,7 @@ function tFetch(sym,mode){
       j.values.forEach(function(v){
         var o=+v.open,h=+v.high,l=+v.low,c=+v.close;
         if([o,h,l,c].some(isNaN))return;
-        bars.push({t:tdLabel(String(v.datetime)),o:o,h:h,l:l,c:c,v:+v.volume||0});
+        var dt=String(v.datetime),ts=Date.parse(dt);bars.push({t:tdLabel(dt),ts:isFinite(ts)?ts:null,o:o,h:h,l:l,c:c,v:+v.volume||0});
       });
       if(bars.length<100)throw new Error('Málo dát ('+bars.length+' sviečok) pre tento symbol.');
       var mt=j.meta||{};
@@ -499,7 +562,7 @@ function bFetch(sym,mode){
   return fetch('https://data-api.binance.vision/api/v3/klines?symbol='+encodeURIComponent(sym)+'&interval='+m.bi+'&limit=500')
     .then(function(r){return r.json();}).then(function(j){
       if(!Array.isArray(j))throw new Error((j&&j.msg)||'Chyba Binance.');
-      var bars=j.map(function(k){return {t:fmt(new Date(k[0]),m.step),o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]};});
+      var bars=j.map(function(k){return {t:fmt(new Date(k[0]),m.step),ts:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]};});
       if(bars.length<100)throw new Error('Málo dát pre tento pár.');
       return {bars:bars,meta:{name:sym,cur:/USDT$/.test(sym)?'USDT':'',ex:'Binance',type:'CRYPTO'}};
     });
@@ -1146,61 +1209,149 @@ function mtfCell(v,digits){
   if(v==null||!isFinite(v))return '—';
   return Number(v).toFixed(digits==null?2:digits);
 }
-function mtfStatsFor(bars,mode){
-  var X=prep(bars,mode),raw=backtest(X),c=costPct()/100;
-  var net=raw.map(function(t){return {side:t.side,ei:t.ei,xi:t.xi,ex:t.ex,R:t.R-c*t.er};});
-  var st=btStats(net),N=bars.length,split=START+Math.floor((N-START)*0.7);
-  var is=btStats(net.filter(function(t){return t.ei<split;}));
-  var os=btStats(net.filter(function(t){return t.ei>=split;}));
-  var eq=equityCurve(net,10000,1);
-  return {mode:mode,label:MODES[mode].label,bars:N,trades:st.n,wr:st.wr,pf:st.pf,avgR:st.avgR,dd:eq.dd,is:is,os:os};
+function mtfTs(b){
+  if(b&&isFinite(b.ts))return +b.ts;
+  var t=Date.parse(b&&b.t||'');return isFinite(t)?t:null;
 }
-function renderMtfRows(rows){
-  var html='<table class="mtf-table"><thead><tr><th>Timeframe</th><th>Sviečky</th><th>Obchody</th><th>Win rate</th><th>Profit factor</th><th>Priem. R</th><th>Max. DD</th><th>OOS obchody</th><th>OOS priem. R</th></tr></thead><tbody>';
-  rows.forEach(function(r){
-    var enough=r.trades>=100,profitable=r.avgR>0&&r.pf>=1;
-    html+='<tr><td>'+esc(r.label)+'</td><td>'+r.bars+'</td><td class="'+(enough?'good':'bad')+'">'+r.trades+(enough?'':' · málo')+'</td>'+
-      '<td>'+mtfCell(r.wr*100,1)+' %</td><td class="'+(r.pf>=1?'good':'bad')+'">'+mtfCell(r.pf)+'</td>'+
-      '<td class="'+(r.avgR>=0?'good':'bad')+'">'+(r.avgR>=0?'+':'')+mtfCell(r.avgR)+'</td>'+
-      '<td>'+mtfCell(r.dd*100,1)+' %</td><td>'+r.os.n+'</td>'+
-      '<td class="'+(r.os.avgR>=0?'good':'bad')+'">'+(r.os.n?(r.os.avgR>=0?'+':'')+mtfCell(r.os.avgR):'—')+'</td></tr>';
+function mtfAggregate(bars,minutes){
+  var ms=minutes*60000,groups={},keys=[],base=15*60000;
+  bars.forEach(function(b){
+    var ts=mtfTs(b);if(ts==null)return;
+    var key=Math.floor(ts/ms)*ms;
+    if(!groups[key]){groups[key]={ts:key,t:fmt(new Date(key),minutes),o:b.o,h:b.h,l:b.l,c:b.c,v:0,n:0,last:ts};keys.push(key);}
+    var g=groups[key];g.h=Math.max(g.h,b.h);g.l=Math.min(g.l,b.l);g.c=b.c;g.v+=(b.v||0);g.n++;g.last=ts;
   });
-  html+='</tbody></table><p class="mtf-foot">„Málo“ = menej ako 100 obchodov, výsledok má nízku štatistickú výpovednú hodnotu. OOS = posledných 30 % historických sviečok. Drawdown je počítaný pri modelovom účte 10 000 a riziku 1 % na obchod.</p>';
+  keys.sort(function(a,b){return a-b;});
+  return keys.map(function(k){return groups[k];}).filter(function(g){
+    var expected=minutes/15;return g.n>=Math.max(1,expected-1)&&g.last+base>=g.ts+ms;
+  });
+}
+function mtfFindClosed(bars,decisionTime,intervalMs){
+  var lo=0,hi=bars.length-1,ans=-1;
+  while(lo<=hi){var mid=(lo+hi)>>1,close=mtfTs(bars[mid])+intervalMs;if(close<=decisionTime){ans=mid;lo=mid+1;}else hi=mid-1;}
+  return ans;
+}
+function mtfTrend(X4,i){
+  if(i<50)return 0;
+  var c=X4.c[i],f=ema(X4.c,20),s=ema(X4.c,50);
+  return c> s[i]&&f[i]>s[i]?1:(c<s[i]&&f[i]<s[i]?-1:0);
+}
+function mtfRawTradeStats(trades,splitTs){
+  var net=trades.map(function(t){return {side:t.side,ei:t.ei,xi:t.xi,ex:t.ex,R:t.R-costPct()/100*t.entry/t.risk,entry:t.entry,risk:t.risk,ts:t.ts};});
+  var all=btStats(net),oos=btStats(net.filter(function(t){return t.ts>=splitTs;})),eq=equityCurve(net,10000,1);
+  return {trades:net,stats:all,oos:oos,dd:eq.dd,bars:trades.length?trades.length:0};
+}
+function mtfBacktest1h(X1,X4,filter4h,commonStart,splitTs){
+  var bars=X1.bars,N=bars.length,trades=[],pos=null,prev=0,step=60*60000;
+  var first=mtfFindClosed(bars,commonStart,step);if(first<200)first=200;
+  for(var i=first;i<N;i++){
+    if(pos&&i>=pos.ei){var b=bars[i],ex=null,R=0;
+      if(pos.side>0){if(b.l<=pos.sl){ex='SL';R=-1;}else if(b.h>=pos.tp){ex='TP';R=pos.rr;}}
+      else{if(b.h>=pos.sl){ex='SL';R=-1;}else if(b.l<=pos.tp){ex='TP';R=pos.rr;}}
+      if(!ex&&(i-pos.ei>=72||i===N-1)){ex='ČAS';R=(b.c-pos.entry)*pos.side/pos.risk;}
+      if(ex){trades.push({side:pos.side,ei:pos.ei,xi:i,ex:ex,R:R,entry:pos.entry,risk:pos.risk,ts:mtfTs(bars[pos.ei])});pos=null;}
+    }
+    var sc=scoreAt(X1,i).score,sig=sc>=35?1:(sc<=-35?-1:0),decision=mtfTs(bars[i])+step;
+    var ix4=mtfFindClosed(X4.bars,decision,4*60*60000),trend=ix4>=0?mtfTrend(X4,ix4):0;
+    var allowed=!filter4h||trend===sig,activeSig=allowed?sig:0;
+    if(!pos&&activeSig!==0&&activeSig!==prev&&i<N-1&&X1.A[i]){
+      var L=levelsAt(X1,i,sig),entry=bars[i+1].o,risk=Math.abs(entry-L.sl),rr=2;
+      if((sig>0?entry>L.sl:entry<L.sl)&&risk>=0.3*X1.A[i]&&risk<=3.5*X1.A[i])pos={side:sig,ei:i+1,entry:entry,risk:risk,sl:L.sl,tp:entry+sig*risk*rr,rr:rr};
+    }
+    prev=activeSig;
+  }
+  return mtfRawTradeStats(trades,splitTs);
+}
+function mtfBacktestFull(X15,X1,X4,commonStart,splitTs){
+  var bars=X15.bars,N=bars.length,trades=[],pos=null,prev=0,step=15*60000;
+  var first=mtfFindClosed(bars,commonStart,step);if(first<200)first=200;
+  var score1=new Array(X1.bars.length).fill(null),score15=new Array(N).fill(null);
+  for(var a=200;a<X1.bars.length;a++)score1[a]=scoreAt(X1,a).score;
+  for(var z=200;z<N;z++)score15[z]=scoreAt(X15,z).score;
+  for(var i=first;i<N;i++){
+    if(pos&&i>=pos.ei){var b=bars[i],ex=null,R=0;
+      if(pos.side>0){if(b.l<=pos.sl){ex='SL';R=-1;}else if(b.h>=pos.tp){ex='TP';R=pos.rr;}}
+      else{if(b.h>=pos.sl){ex='SL';R=-1;}else if(b.l<=pos.tp){ex='TP';R=pos.rr;}}
+      if(!ex&&(i-pos.ei>=288||i===N-1)){ex='ČAS';R=(b.c-pos.entry)*pos.side/pos.risk;}
+      if(ex){trades.push({side:pos.side,ei:pos.ei,xi:i,ex:ex,R:R,entry:pos.entry,risk:pos.risk,ts:mtfTs(bars[pos.ei])});pos=null;}
+    }
+    var decision=mtfTs(bars[i])+step,ix1=mtfFindClosed(X1.bars,decision,60*60000),ix4=mtfFindClosed(X4.bars,decision,4*60*60000);
+    var setup=ix1>=200?score1[ix1]:null,trend=ix4>=50?mtfTrend(X4,ix4):0,entryScore=score15[i];
+    var side=setup!=null&&setup>=35?1:(setup!=null&&setup<=-35?-1:0);
+    var confirm=entryScore!=null&&(side>0?entryScore>=35:side<0?entryScore<=-35:false),activeSig=side!==0&&trend===side&&confirm?side:0;
+    if(!pos&&activeSig!==0&&activeSig!==prev&&i<N-1&&ix1>=0&&X1.A[ix1]){
+      var L=levelsAt(X1,ix1,side),entry=bars[i+1].o,risk=Math.abs(entry-L.sl),rr=2;
+      if((side>0?entry>L.sl:entry<L.sl)&&risk>=0.3*X1.A[ix1]&&risk<=3.5*X1.A[ix1])pos={side:side,ei:i+1,entry:entry,risk:risk,sl:L.sl,tp:entry+side*risk*rr,rr:rr};
+    }
+    prev=activeSig;
+  }
+  return mtfRawTradeStats(trades,splitTs);
+}
+function mtfDecisionCards(bars15,bars1,bars4){
+  var X15=prep(bars15,'scalp'),X1=prep(bars1,'day'),X4=prep(bars4,'swing');
+  X15.htf.fill(0);X1.htf.fill(0);
+  var now=Date.now(),i4=mtfFindClosed(bars4,now,4*60*60000),i1=mtfFindClosed(bars1,now,60*60000),i15=bars15.length-1;
+  var trend=i4>=50?mtfTrend(X4,i4):0,s1=i1>=200?scoreAt(X1,i1).score:0,s15=i15>=200?scoreAt(X15,i15).score:0;
+  var d1=s1>=35?1:(s1<=-35?-1:0),d15=s15>=35?1:(s15<=-35?-1:0),go=trend!==0&&trend===d1&&d1===d15;
+  var fmtDir=function(v){return v>0?'LONG':v<0?'SHORT':'NEUTRÁL';};
+  var cards=[{t:'4H · HLAVNÝ TREND',v:fmtDir(trend),c:trend?'good':'wait'},{t:'1H · SETUP',v:fmtDir(d1)+(i1<200?' · málo dát':''),c:d1?(d1===trend?'good':'bad'):'wait'},{t:'15M · POTVRDENIE',v:fmtDir(d15),c:d15?(d15===d1?'good':'bad'):'wait'},{t:'VÝSLEDNÉ ROZHODNUTIE',v:go?'VSTUP '+fmtDir(trend):'ČAKAŤ',c:go?'good':'wait'}];
+  $('mtfDecision').innerHTML=cards.map(function(x){return '<div class="mtf-card '+x.c+'"><small>'+x.t+'</small><b>'+x.v+'</b></div>';}).join('');
+}
+function renderMtfRows(rows,period){
+  var html='<table class="mtf-table"><thead><tr><th>Stratégia</th><th>Obchody</th><th>Win rate</th><th>Profit factor</th><th>Priem. R</th><th>Max. DD</th><th>OOS obchody</th><th>OOS priem. R</th></tr></thead><tbody>';
+  rows.forEach(function(r){var s=r.stats,o=r.oos,enough=s.n>=100;
+    html+='<tr><td>'+r.label+'</td><td class="'+(enough?'good':'bad')+'">'+s.n+(enough?'':' · málo')+'</td><td>'+mtfCell(s.wr*100,1)+' %</td><td class="'+(s.pf>=1?'good':'bad')+'">'+mtfCell(s.pf)+'</td><td class="'+(s.avgR>=0?'good':'bad')+'">'+(s.avgR>=0?'+':'')+mtfCell(s.avgR)+'</td><td>'+mtfCell(r.dd*100,1)+' %</td><td>'+o.n+'</td><td class="'+(o.avgR>=0?'good':'bad')+'">'+(o.n?(o.avgR>=0?'+':'')+mtfCell(o.avgR):'—')+'</td></tr>';
+  });
+  html+='</tbody></table><p class="mtf-foot">Spoločné obdobie: '+period+' · 70/30 split podľa času, nie podľa počtu obchodov. „Málo“ = menej ako 100 obchodov. Všetky varianty používajú 1H ATR, SL podľa štruktúry/ATR, TP 2R, rovnaké náklady a rovnaký podkladový rad 15M dát. Výsledky sú historická simulácia, nie predikcia.</p>';
   $('mtfResults').innerHTML=html;
 }
-$('mtfRun').addEventListener('click',function(){
-  var btn=$('mtfRun'),status=$('mtfStatus'),sym=state.sym,src=state.src,custom=state.custom;
-  if(sym==='CUSTOM'||custom){
-    status.textContent='Multi-timeframe porovnanie vyžaduje samostatné dáta pre každý timeframe. Vlastný CSV súbor obsahuje iba jeden interval.';
-    return;
-  }
-  var S=SRC[src];
-  if(!S||!S.fetch){status.textContent='Vyber live zdroj alebo použi vzorové dáta.';return;}
-  btn.disabled=true;status.textContent='Načítavam historické dáta pre 15 min, 1 hod a 4 hod…';
-  var modes=['scalp','day','swing'],rows=[],idx=0;
+function mtfFetchBinance(symbol){
+  var pages=[],end=Date.now(),page=0;
   function next(){
-    if(idx>=modes.length){
-      if(src!==state.src||sym!==state.sym){status.textContent='Výber symbolu alebo zdroja sa počas testu zmenil. Spusti test znova.';btn.disabled=false;return;}
-      renderMtfRows(rows);status.textContent='Hotovo · '+sym+' · '+S.label+' · náklady '+costPct()+' %';
-      btn.disabled=false;return;
-    }
-    var mode=modes[idx++];
-    var task;
-    if(src==='sample'){
-      var sy=SYMS.filter(function(x){return x.s===sym;})[0]||{s:sym,n:sym,p:100,vol:0.02,drift:0.0005,v:100000};
-      task=Promise.resolve({bars:genSample(sy,mode)});
-    }else{
-      task=S.spacing?enqueue(function(){return S.fetch(sym,mode);},S.spacing,false):S.fetch(sym,mode);
-    }
-    task.then(function(result){
-      if(!result||!result.bars||result.bars.length<START+30)throw new Error('Nedostatok historických dát pre '+MODES[mode].label+'.');
-      rows.push(mtfStatsFor(result.bars,mode));next();
-    }).catch(function(err){
-      status.textContent='Nepodarilo sa načítať '+MODES[mode].label+': '+(err&&err.message?err.message:'chyba dátového zdroja');
-      btn.disabled=false;
-    });
+    if(page>=4)return Promise.resolve(pages.reverse().reduce(function(a,b){return a.concat(b);},[]));
+    page++;
+    return fetch('https://data-api.binance.vision/api/v3/klines?symbol='+encodeURIComponent(symbol)+'&interval=15m&limit=1000&endTime='+end)
+      .then(function(r){if(!r.ok)throw new Error('Binance HTTP '+r.status);return r.json();})
+      .then(function(j){if(!Array.isArray(j))throw new Error(j&&j.msg||'Binance dáta nie sú dostupné.');if(!j.length)return pages.reverse().reduce(function(a,b){return a.concat(b);},[]);pages.push(j);end=+j[0][0]-1;return next();});
   }
-  next();
+  return next().then(function(rows){var seen={};return rows.map(function(k){return {t:fmt(new Date(+k[0]),15),ts:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]};}).filter(function(b){if(seen[b.ts])return false;seen[b.ts]=1;return b.ts+15*60000<=Date.now();}).sort(function(a,b){return a.ts-b.ts;});});
+}
+$('mtfRun').addEventListener('click',function(){
+  var btn=$('mtfRun'),status=$('mtfStatus'),sym=state.sym,src=state.src;
+  if(sym==='CUSTOM'){status.textContent='CSV obsahuje iba jeden timeframe a nemá spoľahlivo označený interval. Nahraj 15M CSV alebo vyber live symbol.';return;}
+  btn.disabled=true;status.textContent='Načítavam spoločnú 15M históriu…';
+  var task;
+  if(src==='sample'){
+    var sy=SYMS.filter(function(x){return x.s===sym;})[0]||{s:sym,n:sym,p:100,vol:0.02,drift:0.0005,v:100000};
+    var old=genSample; // Generate a longer deterministic sample without changing normal chart history.
+    var m=MODES.scalp,r=rng(hash(sym+'mtf-long-sample')),bars=[],N=3200,p0=sy.p*(0.85+r()*0.1),now=Date.now();
+    for(var q=0;q<N;q++){var ts=now-(N-q)*15*60000,o=p0,ret=(sy.drift/26)*(Math.sin(q/55)+Math.sin(q/17)*0.5)*6+(sy.vol/Math.sqrt(26))*gauss(r),c=o*Math.exp(ret),w=sy.vol/Math.sqrt(26)*0.5,h=Math.max(o,c)*(1+Math.abs(gauss(r))*w),l=Math.min(o,c)*(1-Math.abs(gauss(r))*w);bars.push({t:fmt(new Date(ts),15),ts:ts,o:o,h:h,l:l,c:c,v:Math.round(sy.v/26*(0.6+r()*0.8))});p0=c;}
+    task=Promise.resolve(bars);
+  }else if(src==='bn')task=mtfFetchBinance(sym);
+  else if(src==='td')task=tFetch(sym,'scalp').then(function(x){return x.bars;});
+  else if(SRC[src]&&SRC[src].fetch)task=SRC[src].fetch(sym,'scalp').then(function(x){return x.bars;});
+  else task=Promise.reject(new Error('Vybraný zdroj nepodporuje MTF dáta.'));
+  task.then(function(bars15){
+    if(src!==state.src||sym!==state.sym)throw new Error('Počas načítania sa zmenil symbol alebo zdroj. Spusti analýzu znova.');
+    if(!bars15||bars15.length<1000)throw new Error('Je dostupných len '+(bars15?bars15.length:0)+' 15M sviečok. Pre spoľahlivé porovnanie potrebujeme približne 1 000 až 4 000.');
+    bars15=bars15.filter(function(b){var t=mtfTs(b);return t!=null&&t+15*60000<=Date.now();}).sort(function(a,b){return mtfTs(a)-mtfTs(b);});
+    var bars1=mtfAggregate(bars15,60),bars4=mtfAggregate(bars15,240);
+    if(bars1.length<220||bars4.length<55)throw new Error('Po agregácii je málo dát: 1H '+bars1.length+' sviečok, 4H '+bars4.length+'. Potrebujeme aspoň 220 / 55.');
+    var X15=prep(bars15,'scalp'),X1=prep(bars1,'day'),X4=prep(bars4,'swing');X15.htf.fill(0);X1.htf.fill(0);
+    var commonStart=Math.max(mtfTs(bars1[200]),mtfTs(bars4[50]));
+    var endTime=mtfTs(bars15[bars15.length-1])+15*60000,splitTs=commonStart+(endTime-commonStart)*0.7;
+    var rows=[
+      Object.assign({label:'A · Samostatný 1H signál'},mtfBacktest1h(X1,X4,false,commonStart,splitTs)),
+      Object.assign({label:'B · 1H signál + filter 4H'},mtfBacktest1h(X1,X4,true,commonStart,splitTs)),
+      Object.assign({label:'C · 4H + 1H + potvrdenie 15M'},mtfBacktestFull(X15,X1,X4,commonStart,splitTs))
+    ];
+    mtfDecisionCards(bars15,bars1,bars4);
+    var from=new Date(commonStart).toLocaleDateString('sk-SK'),to=new Date(endTime).toLocaleDateString('sk-SK');
+    renderMtfRows(rows,from+' – '+to);
+    var best=rows.slice().sort(function(a,b){return b.stats.avgR-a.stats.avgR;})[0];
+    status.textContent='Hotovo · '+sym+' · '+bars15.length+' × 15M, '+bars1.length+' × 1H, '+bars4.length+' × 4H · najvyššie priem. R: '+best.label;
+  }).catch(function(err){status.textContent=err&&err.message?err.message:'Nepodarilo sa dokončiť MTF test.';})
+    .then(function(){btn.disabled=false;});
 });
 
 function renderReasons(res){
@@ -1447,7 +1598,7 @@ function parseCSV(txt){
     var p=lines[i].split(delim),o=num(p[idx.o]),h=num(p[idx.h]),l=num(p[idx.l]),c=num(p[idx.c]);
     if([o,h,l,c].some(isNaN))continue;
     var v=idx.v>=0?num(p[idx.v]):0;
-    bars.push({t:String(p[idx.t]||'').replace(/"/g,'').slice(0,16),o:o,h:h,l:l,c:c,v:isNaN(v)?0:v});
+    var stamp=String(p[idx.t]||'').replace(/"/g,'');bars.push({t:stamp.slice(0,16),ts:Date.parse(stamp),o:o,h:h,l:l,c:c,v:isNaN(v)?0:v});
   }
   if(bars.length>1){
     var a=Date.parse(bars[0].t),b=Date.parse(bars[bars.length-1].t);
@@ -1596,6 +1747,42 @@ function startTimers(){
     }
   },3000);
 }
+
+/* ---------- hlavná navigácia pracovného priestoru ---------- */
+(function(){
+  var ids=['overview','strategy','backtest','settings'];
+  function activateTab(name,remember){
+    if(ids.indexOf(name)<0)name='overview';
+    ids.forEach(function(id){
+      var view=document.getElementById('tab-'+id);
+      var btn=document.getElementById('tabBtn-'+id);
+      if(view)view.hidden=id!==name;
+      if(btn)btn.setAttribute('aria-selected',String(id===name));
+    });
+    if(remember){try{localStorage.setItem('tr_active_tab',name);}catch(e){}}
+    if(name==='overview'||name==='backtest'){
+      requestAnimationFrame(function(){
+        if(window.redrawTradeRadar)window.redrawTradeRadar();
+        window.dispatchEvent(new Event('resize'));
+      });
+    }
+  }
+  ids.forEach(function(id){
+    var b=document.getElementById('tabBtn-'+id);
+    if(b)b.addEventListener('click',function(){activateTab(id,true);});
+    if(b)b.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        var i=ids.indexOf(id),next=ids[(i+(e.key==='ArrowRight'?1:-1)+ids.length)%ids.length];
+        activateTab(next,true);document.getElementById('tabBtn-'+next).focus();
+      }
+    });
+  });
+  var initial='overview';
+  try{var saved=localStorage.getItem('tr_active_tab');if(ids.indexOf(saved)>=0)initial=saved;}catch(e){}
+  activateTab(initial,false);
+})();
+
 function init(){
   renderAll();
   if(state.sandbox)return;

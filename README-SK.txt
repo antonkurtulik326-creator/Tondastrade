@@ -58,3 +58,22 @@ PRVÉ SPUSTENIE
 5. V Chrome na Androide môžeš použiť menu ⋮ → Pridať na plochu / Inštalovať aplikáciu.
 
 Poznámka: Po nasadení skontroluj, že GitHub Pages publikuje všetky súbory v koreňovom priečinku.
+
+
+MULTI-TIMEFRAME TRADING SYSTEM (v3)
+- Preferovaný plán: 4H určuje smer, 1H vytvára setup, 15M potvrdzuje vstup.
+- Porovnávajú sa tri varianty: samostatný 1H, 1H s filtrom 4H a kombinácia 4H+1H+15M.
+- Všetky tri varianty vychádzajú z jedného radu 15M sviečok; 1H a 4H sa agregujú z rovnakých dát, aby obdobie bolo porovnateľné.
+- Binance načítava až 4 000 15M sviečok stránkovaním. Twelve Data môže mať podľa plánu menej histórie a test sa nemusí dať spustiť.
+- Používa sa 1H ATR pre SL, cieľ 2R, rovnaké spread/poplatky a 70/30 časové rozdelenie. Swap/financovanie CFD nie je započítané.
+- MTF agregácia je určená najmä pre 24/7 krypto trhy. Pri akciách/ETF treba rešpektovať obchodné seansy.
+- Pri menej ako 100 obchodoch sú štatistiky len orientačné. Výsledky nie sú zárukou budúcich ziskov.
+
+NOVÉ ROZHRANIE (v4)
+- Aplikácia je rozdelená do štyroch samostatných pracovných sekcií: Prehľad, MTF stratégia, Backtest a Nastavenia.
+- Watchlist, vyhľadávanie symbolov, výber timeframe a stav dát zostávajú hore dostupné vo všetkých sekciách.
+- Prehľad obsahuje signál, výpočet pozície/rizika a cenový graf.
+- MTF stratégia obsahuje 4H → 1H → 15M rozhodovací proces a porovnanie variantov.
+- Backtest obsahuje historické metriky, equity krivku, posledné obchody a vysvetlenie signálu.
+- Nastavenia obsahujú dátový zdroj, upozornenia a import vlastných CSV dát.
+- Aktívna sekcia sa pamätá v tomto prehliadači. Pri aktualizácii treba nahrať celý obsah ZIP do koreňového priečinka GitHub Pages.
