@@ -410,6 +410,35 @@ h1 b{color:#D2C7FF;text-shadow:0 0 24px rgba(185,167,248,.22)}
  .home-card strong{font-size:12px}.home-card small{font-size:10px}
 }
 
+
+/* Trade Radar v9: crypto MTF dashboard + mobile dock */
+body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.workspace-nav{position:fixed!important;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));top:auto!important;z-index:9999;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:8px;border-radius:22px;background:rgba(17,20,29,.94);border:1px solid rgba(190,196,210,.2);box-shadow:0 14px 44px rgba(0,0,0,.48);backdrop-filter:blur(22px)}
+.nav-caption{display:none}
+.workspace-nav button{min-height:58px;padding:7px 2px;gap:5px;flex-direction:column;font-size:10px;border-radius:15px}
+.workspace-nav button .nav-icon{font-size:21px}
+.home-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.home-card{min-height:116px;padding:18px;gap:13px}
+.home-card .home-icon{width:52px;height:52px;flex-basis:52px;font-size:25px;border-radius:17px}
+.home-card strong{font-size:16px}.home-card small{font-size:12px}
+.crypto-board{display:flex;flex-direction:column;gap:9px}
+.crypto-head,.crypto-row{display:grid;grid-template-columns:minmax(105px,1.2fr) minmax(72px,.8fr) repeat(3,minmax(62px,.7fr)) minmax(68px,.8fr);gap:7px;align-items:center}
+.crypto-head{padding:8px 12px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.crypto-row{padding:12px;border:1px solid rgba(190,196,210,.13);border-radius:15px;background:linear-gradient(135deg,rgba(28,33,44,.9),rgba(17,21,29,.94));cursor:pointer;min-width:0}
+.crypto-row:active{border-color:rgba(185,167,248,.6)}
+.crypto-name b{display:block;font-size:13px}.crypto-name small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.crypto-price{font:600 12px var(--font-mono);text-align:right;white-space:nowrap}
+.tf-cell{border-radius:10px;padding:7px 4px;text-align:center;background:rgba(255,255,255,.035);border:1px solid rgba(190,196,210,.09)}
+.tf-cell b{display:block;font-size:10px}.tf-cell small{display:block;font-size:10px;margin-top:3px;color:var(--muted)}
+.tf-cell.long{color:#A4E2C6;border-color:rgba(145,214,187,.25);background:rgba(145,214,187,.08)}
+.tf-cell.short{color:#EAA5B0;border-color:rgba(223,146,159,.25);background:rgba(223,146,159,.08)}
+.tf-cell.wait{color:#E6D3A5;border-color:rgba(216,193,138,.22);background:rgba(216,193,138,.07)}
+.crypto-mtf{display:flex;align-items:center;justify-content:center;gap:4px;flex-direction:column;border-radius:10px;padding:6px 4px}
+.crypto-mtf b{font-size:11px}.crypto-mtf small{font-size:10px;color:var(--muted)}
+.crypto-mtf.long b{color:#A4E2C6}.crypto-mtf.short b{color:#EAA5B0}.crypto-mtf.wait b{color:#E6D3A5}
+.crypto-loading{padding:15px;color:var(--muted);font-size:12px}
+@media(max-width:620px){.crypto-head,.crypto-row{grid-template-columns:minmax(84px,1.05fr) 66px repeat(3,55px) 62px;gap:5px}.crypto-row{padding:9px 7px}.crypto-name b{font-size:11px}.crypto-name small{font-size:9px}.crypto-price{font-size:10px}.tf-cell{padding:6px 2px}.tf-cell b,.tf-cell small{font-size:9px}.crypto-mtf b{font-size:10px}.crypto-head{font-size:9px;padding:7px 6px}.workspace-nav{left:7px;right:7px;bottom:calc(7px + env(safe-area-inset-bottom));padding:6px}.workspace-nav button{font-size:9px;min-height:54px}.workspace-nav button .nav-icon{font-size:19px}}
+
 </style>
 
 </head><body>
@@ -503,9 +532,9 @@ h1 b{color:#D2C7FF;text-shadow:0 0 24px rgba(185,167,248,.22)}
     </section>
     <div class="view-heading"><div><h2>Pracovný priestor</h2><p>Vyber sekciu, ktorú chceš otvoriť.</p></div></div>
     <div class="home-menu">
-      <button class="home-card" type="button" data-go="overview"><span class="home-icon">◫</span><span><strong>Prehľad</strong><small>Trh, watchlist a účet</small></span></button>
+      <button class="home-card" type="button" data-go="overview"><span class="home-icon">▦</span><span><strong>Prehľad</strong><small>Trh, watchlist a účet</small></span></button>
       <button class="home-card" type="button" data-go="strategy"><span class="home-icon">⌁</span><span><strong>MTF analyzér</strong><small>Skóre LONG / SHORT a obchodný plán</small></span></button>
-      <button class="home-card" type="button" data-go="backtest"><span class="home-icon">▥</span><span><strong>Backtest</strong><small>Výkonnosť a robustnosť stratégie</small></span></button>
+      <button class="home-card" type="button" data-go="backtest"><span class="home-icon">▤</span><span><strong>Backtest</strong><small>Výkonnosť a robustnosť stratégie</small></span></button>
       <button class="home-card" type="button" data-go="journal"><span class="home-icon">▤</span><span><strong>Obchodný denník</strong><small>Manuálne výsledky z XTB</small></span></button>
       <button class="home-card" type="button" data-go="settings"><span class="home-icon">⚙</span><span><strong>Nastavenia</strong><small>Dátové zdroje a upozornenia</small></span></button>
     </div>
@@ -635,7 +664,7 @@ function lsGet(k,d){try{var v=localStorage.getItem(k);return v==null?d:v;}catch(
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 function normItem(w){return {s:String(w.s),n:w.n||String(w.s),k:w.k==='cfd'?'cfd':'cash',lev:LEVS.indexOf(w.lev)>=0?w.lev:5};}
 function defWatch(src){
-  if(src==='bn')return ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','BNBUSDT'].map(function(x){return {s:x,n:x.replace('USDT','/USDT'),k:'cash',lev:2};});
+  if(src==='bn')return ['BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','USDCUSDT','DOGEUSDT','ADAUSDT','TRXUSDT','LINKUSDT'].map(function(x){return {s:x,n:x.replace('USDT','/USDT'),k:'cash',lev:2};});
   return SYMS.map(function(x){return {s:x.s,n:x.n,k:'cash',lev:(x.s==='QQQ'||x.s==='SPY')?20:5};});
 }
 function loadWatch(src){
@@ -839,7 +868,7 @@ function setSource(src){
   if(src!=='sample'&&state.sandbox)return;
   if(src==='yahoo'&&!state.server)return;
   state.src=src;state.live=src!=='sample';lsSet('tr_src',src);
-  state.watch=loadWatch(src);state.data={};state.loading={};state.last='';
+  state.watch=loadWatch(src);state.data={};state.loading={};state.last='';if(src==='bn'){cryptoTopAt=0;cryptoMtf={};state.sym='BTCUSDT';if(!state.watch.some(function(w){return w.s==='BTCUSDT';}))state.watch.unshift({s:'BTCUSDT',n:'BTC/USDT',k:'cash',lev:2});}
   Q.items=[];
   var s=lsGet('tr_sym_'+src,'');
   state.sym=state.watch.some(function(w){return w.s===s;})?s:state.watch[0].s;
@@ -1191,6 +1220,7 @@ function rowEl(o){
 }
 function renderTickers(){
   var el=$('tickers'),pend=$('bpend');el.innerHTML='';pend.innerHTML='';
+  if(state.src==='bn'){renderCryptoDashboard(el);pend.innerHTML='';if(!cryptoTopAt||Date.now()-cryptoTopAt>300000)fetchTopCrypto();else state.watch.forEach(function(w){loadCryptoMtf(w.s);});return;}
   var cols={LONG:[],SHORT:[],'ČAKAJ':[]};
   items().forEach(function(it){
     var bars=getBars(it.key),e=state.live&&it.key!=='CUSTOM'?state.data[liveKey(it.key)]:null;
@@ -1216,6 +1246,50 @@ function renderTickers(){
     list.forEach(function(o){col.appendChild(rowEl(o));});
     el.appendChild(col);
   });
+}
+
+/* v9: top 10 Binance USDT markets and parallel timeframe analysis */
+var cryptoTopBusy=false,cryptoTopAt=0,cryptoMtf={},cryptoMtfBusy={};
+function fetchTopCrypto(){
+  if(state.src!=='bn'||cryptoTopBusy||Date.now()-cryptoTopAt<300000)return;
+  cryptoTopBusy=true;
+  fetch('https://data-api.binance.vision/api/v3/ticker/24hr').then(function(r){if(!r.ok)throw new Error('Binance nedostupná');return r.json();}).then(function(rows){
+    var stable=['USDCUSDT','FDUSDUSDT','TUSDUSDT','USDPUSDT','DAIUSDT'];
+    var ranked=rows.filter(function(x){return /USDT$/.test(x.symbol)&&!stable.includes(x.symbol)&&!/(UP|DOWN|BULL|BEAR)USDT$/.test(x.symbol)&&Number(x.lastPrice)>0;})
+      .sort(function(a,b){return Number(b.quoteVolume)-Number(a.quoteVolume);}).slice(0,10);
+    if(!ranked.some(function(x){return x.symbol==='BTCUSDT';})){var btc=rows.find(function(x){return x.symbol==='BTCUSDT';});if(btc)ranked[9]=btc;}
+    state.watch=ranked.map(function(x){return {s:x.symbol,n:x.symbol.replace('USDT','/USDT'),k:'cash',lev:2};});
+    saveWatch();cryptoTopAt=Date.now();
+    if(!state.watch.some(function(x){return x.s===state.sym;}))state.sym='BTCUSDT';
+    renderTickers();
+    state.watch.forEach(function(w){loadCryptoMtf(w.s);});
+  }).catch(function(){var w=loadWatch('bn');if(!w.some(function(x){return x.s==='BTCUSDT';}))w.unshift({s:'BTCUSDT',n:'BTC/USDT',k:'cash',lev:2});state.watch=w.slice(0,10);renderTickers();state.watch.forEach(function(x){loadCryptoMtf(x.s);});})
+  .then(function(){cryptoTopBusy=false;});
+}
+function loadCryptoMtf(sym){
+  if(cryptoMtf[sym]&&Date.now()-cryptoMtf[sym].ts<45000)return Promise.resolve(cryptoMtf[sym]);
+  if(cryptoMtfBusy[sym])return cryptoMtfBusy[sym];
+  var modes=['scalp','day','swing'];
+  cryptoMtfBusy[sym]=Promise.all(modes.map(function(mode){return bFetch(sym,mode);})).then(function(res){
+    var vals=res.map(function(x,i){var bars=x.bars,X=prep(bars,modes[i]),r=scoreAt(X,bars.length-1);return {score:r.score,side:r.score>=35?'LONG':r.score<=-35?'SHORT':'ČAKAŤ',price:bars[bars.length-1].c};});
+    var weighted=vals[0].score*.25+vals[1].score*.35+vals[2].score*.40;
+    cryptoMtf[sym]={tf:vals,score:Math.round(weighted),side:weighted>=35?'LONG':weighted<=-35?'SHORT':'ČAKAŤ',price:vals[1].price,ts:Date.now()};
+    renderTickers();return cryptoMtf[sym];
+  }).catch(function(err){cryptoMtf[sym]={err:err.message||'Dáta nedostupné',ts:Date.now()};renderTickers();return cryptoMtf[sym];}).then(function(x){delete cryptoMtfBusy[sym];return x;});
+  return cryptoMtfBusy[sym];
+}
+function renderCryptoDashboard(el){
+  el.innerHTML='';el.className='crypto-board';
+  var head=document.createElement('div');head.className='crypto-head';head.innerHTML='<span>Kryptomena</span><span style="text-align:right">Cena</span><span style="text-align:center">15 min</span><span style="text-align:center">1 hod</span><span style="text-align:center">4 hod</span><span style="text-align:center">MTF</span>';el.appendChild(head);
+  state.watch.forEach(function(w){
+    var d=cryptoMtf[w.s],row=document.createElement('div');row.className='crypto-row';row.setAttribute('role','button');row.tabIndex=0;
+    var price=d&&d.price?f2(d.price):'…';
+    var html='<div class="crypto-name"><b>'+esc(w.s.replace('USDT',''))+'</b><small>'+esc(w.n)+'</small></div><div class="crypto-price">'+price+'</div>';
+    ['15 min','1 hod','4 hod'].forEach(function(label,i){var v=d&&d.tf&&d.tf[i],side=v?v.side:'NAČÍT.';var cl=side==='LONG'?'long':side==='SHORT'?'short':'wait';html+='<div class="tf-cell '+cl+'"><b>'+side+'</b><small>'+(v?Math.abs(v.score)+'/100':(d&&d.err?'chyba':'…'))+'</small></div>';});
+    var side=d?d.side:'NAČÍT.';var cl=side==='LONG'?'long':side==='SHORT'?'short':'wait';html+='<div class="crypto-mtf '+cl+'"><b>'+side+'</b><small>'+(d?Math.abs(d.score)+'/100':'MTF')+'</small></div>';
+    row.innerHTML=html;row.addEventListener('click',function(){state.sym=w.s;lsSet('tr_sym_bn',w.s);renderAll();});row.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();row.click();}});el.appendChild(row);
+  });
+  if(!state.watch.length){var msg=document.createElement('div');msg.className='crypto-loading';msg.textContent='Načítavam 10 najobchodovanejších kryptomien z Binance…';el.appendChild(msg);}
 }
 function onLoaded(sym){if(sym===state.sym)renderAll();else renderTickers();}
 function renderSignal(res){
@@ -2123,15 +2197,7 @@ function startTimers(){
     card.addEventListener('click',function(){activateTab(card.getAttribute('data-go'),true);});
   });
   var initial='home';
-  try{
-    var uiVersion=localStorage.getItem('tr_ui_version');
-    if(uiVersion==='signature-v8'){
-      var saved=localStorage.getItem('tr_active_tab');if(ids.indexOf(saved)>=0)initial=saved;
-    }else{
-      localStorage.setItem('tr_ui_version','signature-v8');
-      localStorage.setItem('tr_active_tab','home');
-    }
-  }catch(e){}
+  try{var saved=localStorage.getItem('tr_active_tab');if(ids.indexOf(saved)>=0)initial=saved;}catch(e){}
   activateTab(initial,false);
 })();
 

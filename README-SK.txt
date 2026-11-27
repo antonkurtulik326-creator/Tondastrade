@@ -104,3 +104,15 @@ VERZIA v8 – SIGNATURE EDITION
 - Skóre vyjadruje silu technickej zhody, nie pravdepodobnosť zisku. Rozhodnutie LONG/SHORT/WAIT naďalej vyžaduje potvrdenie smeru všetkých troch timeframe podľa pôvodnej logiky.
 - Všetky obchodné príkazy zostávajú manuálne v XTB. Aplikácia neposiela ani neupravuje príkazy.
 - Odporúčaná dĺžka držania je orientačný odhad podľa ATR, nie garantovaný časový výsledok.
+
+
+TRADE RADAR SIGNATURE v9 – NOVINKY
+
+- Binance dashboard zobrazuje 10 najobchodovanejších USDT párov podľa 24-hodinového objemu. BTCUSDT je vždy zahrnutý. Zoznam sa obnovuje približne každých 5 minút.
+- Pri každej kryptomene je cena, samostatné skóre a smer pre 15 min, 1 hodinu a 4 hodiny, plus súhrnné MTF skóre.
+- MTF váhy: 4H 40 %, 1H 35 %, 15M 25 %. Skóre vyjadruje zhodu indikátorov, nie pravdepodobnosť zisku.
+- Spodná navigácia je fixná a optimalizovaná pre dotykové ovládanie. Menu má väčšie ikony a dlaždice.
+- Dáta sú verejné trhové dáta Binance. Aplikácia nevykonáva obchody a neposiela príkazy do XTB.
+
+AKTUALIZÁCIA GITHUB PAGES
+Rozbaľ ZIP a nahraj obsah priečinka Trade-Radar-Signature-v8 do koreňového priečinka GitHub repozitára. Nahraď index.html, sw.js, manifest.webmanifest a ikony. Potom potvrď zmeny (Commit changes). Po aktualizácii obnov stránku; ak telefón stále ukazuje starú verziu, zavri aplikáciu, vymaž jej cache alebo ju odinštaluj a nainštaluj znova.
