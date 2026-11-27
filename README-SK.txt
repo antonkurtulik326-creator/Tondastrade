@@ -93,3 +93,14 @@ VERZIA v7 – OPRAVA NAVIGÁCIE A MTF PANELU
 - MTF sekcia má jednotný panel odporúčania LONG / SHORT / WAIT.
 - Pri potvrdenom LONG/SHORT sa zobrazuje výrazná odporúčaná dĺžka držania a odhady k TP1–TP3 a SL.
 - Pri WAIT sa výslovne uvádza, že čas držania nie je určený, pretože nie je platný obchodný smer.
+
+
+VERZIA v8 – SIGNATURE EDITION
+- Nový prémiový vizuálny motív: grafitové a midnight pozadie s jemnými fialovými a tyrkysovými svetelnými prechodmi.
+- Nová samostatná domovská obrazovka Menu s kartami na vstup do Prehľadu, MTF analyzéra, Backtestu, Denníka a Nastavení.
+- Zachované pôvodné sekcie a manuálny obchodný denník.
+- MTF panel zobrazuje skóre LONG a SHORT od 0 do 100 a samostatné skóre 4H, 1H a 15M.
+- Váhy kombinovaného skóre: 4H 40 %, 1H 35 %, 15M 25 %.
+- Skóre vyjadruje silu technickej zhody, nie pravdepodobnosť zisku. Rozhodnutie LONG/SHORT/WAIT naďalej vyžaduje potvrdenie smeru všetkých troch timeframe podľa pôvodnej logiky.
+- Všetky obchodné príkazy zostávajú manuálne v XTB. Aplikácia neposiela ani neupravuje príkazy.
+- Odporúčaná dĺžka držania je orientačný odhad podľa ATR, nie garantovaný časový výsledok.

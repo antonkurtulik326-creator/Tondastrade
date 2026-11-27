@@ -338,6 +338,78 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 .journal-stats small{display:block;color:var(--muted);font-size:10px}.journal-stats b{font:700 18px var(--font-mono)}
 @media(max-width:520px){.plan-grid{grid-template-columns:1fr 1fr}.plan-meta,.plan-scenarios{grid-template-columns:1fr 1fr}.journal-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.journal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+
+/* TRADE RADAR SIGNATURE · premium midnight theme */
+:root{
+ --bg:#0B0D12;--surface:#141720;--surface2:#1B202B;--fg:#F3F2F7;--muted:#9A9EAA;--line:#2A303B;
+ --cyan:#B9A7F8;--pink:#8FD8CB;--lime:#91D6BB;--red:#DF929F;--yellow:#D8C18A;--violet:#8171B8;
+ --up:var(--lime);--down:var(--red);--accent:var(--cyan);--warn:var(--yellow);
+}
+body{
+ background-color:var(--bg);
+ background-image:
+  radial-gradient(ellipse 780px 440px at 4% -8%,rgba(117,91,178,.25),transparent 68%),
+  radial-gradient(ellipse 720px 420px at 100% 4%,rgba(59,131,139,.18),transparent 68%),
+  radial-gradient(ellipse 650px 500px at 52% 110%,rgba(76,67,112,.12),transparent 70%),
+  linear-gradient(145deg,#0B0D12 0%,#10131B 48%,#0B1015 100%);
+ background-attachment:fixed;
+}
+.is-home #searchrow,.is-home #tickers,.is-home #bpend,.is-home #dataBanner{display:none!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.025),transparent 58%);opacity:.9}
+h1 b{color:#D2C7FF;text-shadow:0 0 24px rgba(185,167,248,.22)}
+.panel{background:linear-gradient(145deg,rgba(23,27,37,.94),rgba(17,21,29,.96));border-color:rgba(180,188,205,.12);box-shadow:0 12px 38px rgba(0,0,0,.14)}
+.panel.glow{border-color:rgba(185,167,248,.23);box-shadow:0 14px 42px rgba(0,0,0,.2),0 0 36px rgba(117,91,178,.08)}
+.workspace-nav{grid-template-columns:repeat(6,minmax(0,1fr));background:rgba(19,23,32,.78);border-color:rgba(190,196,210,.13);box-shadow:0 10px 35px rgba(0,0,0,.2)}
+.workspace-nav button[aria-selected="true"]{background:linear-gradient(135deg,rgba(185,167,248,.18),rgba(143,216,203,.09));border-color:rgba(185,167,248,.35);box-shadow:inset 0 1px rgba(255,255,255,.06);color:#F6F3FF}
+.workspace-nav button:hover{background:rgba(255,255,255,.045)}
+.nav-caption{letter-spacing:.18em;color:#B9A7F8}
+.seg button[aria-pressed="true"],.chip[aria-pressed="true"]{background:linear-gradient(135deg,#C7B8FF,#91D6CB);border-color:transparent;color:#11141B;box-shadow:0 5px 18px rgba(157,139,219,.18)}
+.inwrap{background:rgba(9,12,18,.7);border-color:rgba(180,188,205,.16)}
+.inwrap:focus-within{border-color:rgba(185,167,248,.55);box-shadow:0 0 18px rgba(185,167,248,.12)}
+.live.on{color:var(--lime);border-color:rgba(145,214,187,.38)}
+.live.on::before{box-shadow:0 0 10px rgba(145,214,187,.55)}
+.pill.long{background:rgba(145,214,187,.18);color:#A8E7CC;box-shadow:none;border:1px solid rgba(145,214,187,.25)}
+.pill.short{background:rgba(223,146,159,.16);color:#F0AAB5;box-shadow:none;border:1px solid rgba(223,146,159,.25)}
+.pill.wait{background:rgba(216,193,138,.16);color:#E6D3A5;box-shadow:none;border:1px solid rgba(216,193,138,.22)}
+.big.long{color:#A4E2C6;text-shadow:0 0 24px rgba(145,214,187,.2)}
+.big.short{color:#EAA5B0;text-shadow:0 0 24px rgba(223,146,159,.18)}
+.big.wait{color:#E6D3A5;text-shadow:none}
+.mtf-recommend.long{background:linear-gradient(135deg,rgba(83,153,125,.18),rgba(27,32,43,.88));border-color:rgba(145,214,187,.28)}
+.mtf-recommend.short{background:linear-gradient(135deg,rgba(155,86,102,.18),rgba(27,32,43,.88));border-color:rgba(223,146,159,.28)}
+.mtf-recommend.wait{background:linear-gradient(135deg,rgba(160,137,87,.14),rgba(27,32,43,.88));border-color:rgba(216,193,138,.24)}
+.trade-plan{background:linear-gradient(145deg,rgba(185,167,248,.075),rgba(143,216,203,.045));border-color:rgba(185,167,248,.2)}
+.plan-level,.plan-meta>div,.journal-item{background:rgba(255,255,255,.035);border:1px solid rgba(180,188,205,.08)}
+.plan-level.target b,.ok{color:#A4E2C6}.plan-level.stop b,.bad{color:#EAA5B0}
+.plan-save{background:linear-gradient(135deg,#C7B8FF,#91D6CB);color:#11141B}
+.plan-journal{background:rgba(255,255,255,.04);border-color:rgba(180,188,205,.16)}
+.journal-controls button.active{background:linear-gradient(135deg,#C7B8FF,#91D6CB);color:#11141B;border-color:transparent}
+.home-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.home-card{appearance:none;text-align:left;display:flex;align-items:center;gap:14px;min-height:92px;padding:17px;border-radius:18px;border:1px solid rgba(190,196,210,.13);background:linear-gradient(145deg,rgba(29,34,46,.88),rgba(18,22,30,.94));color:var(--fg);cursor:pointer;transition:transform .18s,border-color .18s,background .18s;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.home-card:hover{transform:translateY(-2px);border-color:rgba(185,167,248,.42);background:linear-gradient(145deg,rgba(42,43,60,.94),rgba(19,27,34,.96))}
+.home-card .home-icon{width:42px;height:42px;flex:0 0 42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(185,167,248,.2),rgba(143,216,203,.1));color:#D5C9FF;font-size:20px}
+.home-card strong{display:block;font:600 15px var(--font-display);letter-spacing:-.01em}
+.home-card small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.home-hero{padding:clamp(18px,3vw,30px);border:1px solid rgba(185,167,248,.2);border-radius:22px;background:radial-gradient(ellipse at 85% 5%,rgba(83,151,157,.18),transparent 45%),radial-gradient(ellipse at 10% 0%,rgba(136,107,197,.2),transparent 48%),linear-gradient(135deg,rgba(29,32,44,.95),rgba(16,20,28,.96));box-shadow:0 18px 55px rgba(0,0,0,.18)}
+.home-hero .eyebrow{font-size:10px;letter-spacing:.2em;color:#C4B7F5;font-weight:700}
+.home-hero h2{font-size:clamp(25px,5vw,38px);margin:8px 0 4px;letter-spacing:-.04em}
+.home-hero p{margin:0;color:#A8ACB8;max-width:520px}
+.mtf-score-wrap{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:5px}
+.mtf-score-card{border:1px solid rgba(180,188,205,.1);border-radius:12px;padding:10px;background:rgba(5,8,13,.18)}
+.mtf-score-card small{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em}
+.mtf-score-card strong{font:700 24px var(--font-mono)}
+.mtf-score-track{height:5px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:7px}
+.mtf-score-track i{display:block;height:100%;border-radius:8px}
+.mtf-score-card.long strong{color:#A4E2C6}.mtf-score-card.short strong{color:#EAA5B0}
+@media(max-width:640px){
+ .workspace-nav{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}
+ .workspace-nav button{font-size:9px;padding:8px 1px;gap:4px;flex-direction:column}
+ .workspace-nav button .nav-icon{font-size:15px}
+ .home-menu{gap:8px}
+ .home-card{min-height:84px;padding:11px;gap:9px;border-radius:15px}
+ .home-card .home-icon{width:34px;height:34px;flex-basis:34px;font-size:17px;border-radius:11px}
+ .home-card strong{font-size:12px}.home-card small{font-size:10px}
+}
+
 </style>
 
 </head><body>
@@ -345,7 +417,7 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   <header class="top">
     <div>
       <h1>Trade <b>Radar</b></h1>
-      <p>Krypto, akcie, ETF a forex · technické signály, riziko a kontext trhu.</p>
+      <p>SIGNATURE EDITION · Market intelligence & trading analytics.</p>
     </div>
     <div class="seg" role="group" aria-label="Štýl obchodovania" id="modes"></div>
   </header>
@@ -353,6 +425,7 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 
   <div class="nav-caption">HLAVNÉ MENU</div>
   <div class="workspace-nav" role="tablist" aria-label="Hlavná navigácia">
+    <button type="button" role="tab" id="tabBtn-home" aria-controls="tab-home" aria-selected="true"><span class="nav-icon">✧</span><span>Menu</span></button>
     <button type="button" role="tab" id="tabBtn-overview" aria-controls="tab-overview" aria-selected="true"><span class="nav-icon">▦</span><span>Prehľad</span></button>
     <button type="button" role="tab" id="tabBtn-strategy" aria-controls="tab-strategy" aria-selected="false"><span class="nav-icon">⌁</span><span>MTF stratégia</span></button>
     <button type="button" role="tab" id="tabBtn-backtest" aria-controls="tab-backtest" aria-selected="false"><span class="nav-icon">▥</span><span>Backtest</span></button>
@@ -419,6 +492,23 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     </div>
     <p class="err" id="csvMsg" role="status"></p>
   </section>
+  </div>
+
+
+  <div class="tab-view" id="tab-home" role="tabpanel" aria-labelledby="tabBtn-home">
+    <section class="home-hero">
+      <div class="eyebrow">TRADE RADAR · SIGNATURE EDITION</div>
+      <h2>Market intelligence.</h2>
+      <p>Analytický pracovný priestor pre disciplinované rozhodovanie. Dáta, signály a riziko na jednom mieste.</p>
+    </section>
+    <div class="view-heading"><div><h2>Pracovný priestor</h2><p>Vyber sekciu, ktorú chceš otvoriť.</p></div></div>
+    <div class="home-menu">
+      <button class="home-card" type="button" data-go="overview"><span class="home-icon">◫</span><span><strong>Prehľad</strong><small>Trh, watchlist a účet</small></span></button>
+      <button class="home-card" type="button" data-go="strategy"><span class="home-icon">⌁</span><span><strong>MTF analyzér</strong><small>Skóre LONG / SHORT a obchodný plán</small></span></button>
+      <button class="home-card" type="button" data-go="backtest"><span class="home-icon">▥</span><span><strong>Backtest</strong><small>Výkonnosť a robustnosť stratégie</small></span></button>
+      <button class="home-card" type="button" data-go="journal"><span class="home-icon">▤</span><span><strong>Obchodný denník</strong><small>Manuálne výsledky z XTB</small></span></button>
+      <button class="home-card" type="button" data-go="settings"><span class="home-icon">⚙</span><span><strong>Nastavenia</strong><small>Dátové zdroje a upozornenia</small></span></button>
+    </div>
   </div>
 
   <div class="tab-view" id="tab-overview" role="tabpanel" aria-labelledby="tabBtn-overview">
@@ -1384,8 +1474,13 @@ function mtfDecisionCards(bars15,bars1,bars4){
   var X15=prep(bars15,'scalp'),X1=prep(bars1,'day'),X4=prep(bars4,'swing');
   X15.htf.fill(0);X1.htf.fill(0);
   var now=Date.now(),i4=mtfFindClosed(bars4,now,4*60*60000),i1=mtfFindClosed(bars1,now,60*60000),i15=bars15.length-1;
-  var trend=i4>=50?mtfTrend(X4,i4):0,s1=i1>=200?scoreAt(X1,i1).score:0,s15=i15>=200?scoreAt(X15,i15).score:0;
+  var trend=i4>=50?mtfTrend(X4,i4):0;
+  var s4=i4>=200?scoreAt(X4,i4).score:0,s1=i1>=200?scoreAt(X1,i1).score:0,s15=i15>=200?scoreAt(X15,i15).score:0;
   var d1=s1>=35?1:(s1<=-35?-1:0),d15=s15>=35?1:(s15<=-35?-1:0);
+  var clampScore=function(v){return Math.max(0,Math.min(100,Math.round(50+v/2)));};
+  var score4h=trend===0?clampScore(s4):(trend>0?Math.max(65,clampScore(s4)):Math.min(35,clampScore(s4)));
+  var score1h=clampScore(s1),score15m=clampScore(s15);
+  var longScore=Math.round(score4h*.40+score1h*.35+score15m*.25),shortScore=100-longScore;
   var decision=trend!==0&&trend===d1&&d1===d15?trend:0;
   var word=decision>0?'LONG':decision<0?'SHORT':'WAIT';
   var reason=decision>0?'4H trend, 1H setup a 15M potvrdenie súhlasí.':decision<0?'4H trend, 1H setup a 15M potvrdenie súhlasí.':'Timeframy nie sú v úplnom súlade alebo nie je dostatok potvrdení. Nevstupovať.';
@@ -1393,7 +1488,13 @@ function mtfDecisionCards(bars15,bars1,bars4){
   var fmtDir=function(v){return v>0?'LONG':v<0?'SHORT':'NEUTRÁL';};
   $('mtfDecision').innerHTML=
     '<div class="mtf-recommend '+cls+'"><small>JEDNOTNÉ MTF ODPORÚČANIE</small><strong>'+word+'</strong><span>'+reason+'</span></div>'+
-    '<div class="mtf-context"><span>4H <b>'+fmtDir(trend)+'</b></span><span>1H <b>'+fmtDir(d1)+'</b></span><span>15M <b>'+fmtDir(d15)+'</b></span></div>';
+    '<div class="mtf-context"><span>4H <b>'+fmtDir(trend)+'</b></span><span>1H <b>'+fmtDir(d1)+'</b></span><span>15M <b>'+fmtDir(d15)+'</b></span></div>'+
+    '<div class="mtf-score-wrap">'+
+      '<div class="mtf-score-card long"><small>LONG · SILA ZHODY</small><strong>'+longScore+'/100</strong><div class="mtf-score-track"><i style="width:'+longScore+'%;background:#91D6BB"></i></div></div>'+
+      '<div class="mtf-score-card short"><small>SHORT · SILA ZHODY</small><strong>'+shortScore+'/100</strong><div class="mtf-score-track"><i style="width:'+shortScore+'%;background:#DF929F"></i></div></div>'+
+    '</div>'+
+    '<div class="mtf-context"><span>4H skóre <b>'+score4h+'</b></span><span>1H skóre <b>'+score1h+'</b></span><span>15M skóre <b>'+score15m+'</b></span></div>'+
+    '<p class="plan-foot" style="grid-column:1/-1">Skóre vyjadruje technickú zhodu indikátorov a timeframe, nie pravdepodobnosť zisku.</p>';
   var key=state.sym+'|'+word+'|'+bars15[bars15.length-1].t;
   var prior=lsGet('tr_mtf_last_notice','');
   if(state.live&&decision!==0&&prior!==key&&'Notification' in window&&Notification.permission==='granted'){
@@ -1406,7 +1507,7 @@ function mtfDecisionCards(bars15,bars1,bars4){
     }catch(e){}
     lsSet('tr_mtf_last_notice',key);
   }
-  return {decision:word,trend:trend,setup:d1,confirm:d15,score1h:s1,score15m:s15};
+  return {decision:word,trend:trend,setup:d1,confirm:d15,score1h:s1,score15m:s15,score4h:s4,longScore:longScore,shortScore:shortScore};
 }
 
 /* ---------- obchodny plan a manualny XTB dennik ---------- */
@@ -1465,7 +1566,8 @@ function renderTradePlan(bars15,bars1,bars4,decision){
       '<div class="plan-meta">'+
         '<div><small>Odhad k TP1</small><b>'+when(h1)+'</b></div>'+
         '<div><small>Odhad k TP2</small><b>'+when(h2)+'</b></div>'+
-        '<div><small>Odhad k TP3</small><b>'+when(h3)+'</b></div>'+\n        '<div><small>Odhad k SL</small><b>'+when(hs)+'</b></div>'+
+        '<div><small>Odhad k TP3</small><b>'+when(h3)+'</b></div>'+
+        '<div><small>Odhad k SL</small><b>'+when(hs)+'</b></div>'+
         '<div><small>Časový horizont</small><b>Najviac 24 h · do '+dateFmt(expiry)+'</b></div>'+
       '</div>'+
       '<div class="plan-scenarios"><div class="scenario-tp"><b class="ok">SCENÁR A · TP</b><br>Trh sa pohne v smere signálu a zasiahne jeden z cieľov. Sleduj postupne TP1 až TP3.</div><div class="scenario-sl"><b class="bad">SCENÁR B · SL</b><br>Trh sa pohne proti signálu a zasiahne stop-loss. Plán je neplatný.</div></div>'+
@@ -1481,7 +1583,7 @@ function renderTradePlan(bars15,bars1,bars4,decision){
   $('openJournalFromPlan').addEventListener('click',function(){activateJournalTab();});
 }
 function activateJournalTab(){
-  var ids=['overview','strategy','backtest','journal','settings'];
+  var ids=['home','overview','strategy','backtest','journal','settings'];
   ids.forEach(function(id){var v=$('tab-'+id),b=$('tabBtn-'+id);if(v)v.hidden=id!=='journal';if(b)b.setAttribute('aria-selected',String(id==='journal'));});
   try{localStorage.setItem('tr_active_tab','journal');}catch(e){}
   renderJournal();
@@ -1987,9 +2089,10 @@ function startTimers(){
 
 /* ---------- hlavná navigácia pracovného priestoru ---------- */
 (function(){
-  var ids=['overview','strategy','backtest','journal','settings'];
+  var ids=['home','overview','strategy','backtest','journal','settings'];
   function activateTab(name,remember){
-    if(ids.indexOf(name)<0)name='overview';
+    if(ids.indexOf(name)<0)name='home';
+    document.body.classList.toggle('is-home',name==='home');
     ids.forEach(function(id){
       var view=document.getElementById('tab-'+id);
       var btn=document.getElementById('tabBtn-'+id);
@@ -2016,8 +2119,19 @@ function startTimers(){
       }
     });
   });
-  var initial='overview';
-  try{var saved=localStorage.getItem('tr_active_tab');if(ids.indexOf(saved)>=0)initial=saved;}catch(e){}
+  document.querySelectorAll('[data-go]').forEach(function(card){
+    card.addEventListener('click',function(){activateTab(card.getAttribute('data-go'),true);});
+  });
+  var initial='home';
+  try{
+    var uiVersion=localStorage.getItem('tr_ui_version');
+    if(uiVersion==='signature-v8'){
+      var saved=localStorage.getItem('tr_active_tab');if(ids.indexOf(saved)>=0)initial=saved;
+    }else{
+      localStorage.setItem('tr_ui_version','signature-v8');
+      localStorage.setItem('tr_active_tab','home');
+    }
+  }catch(e){}
   activateTab(initial,false);
 })();
 

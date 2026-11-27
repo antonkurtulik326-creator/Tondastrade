@@ -1,13 +1,13 @@
 {
-  "name": "Trade Radar",
+  "name": "Trade Radar Signature",
   "short_name": "Trade Radar",
   "description": "Technické signály pre krypto, akcie, ETF a forex. LONG / SHORT / ČAKAJ, riadenie rizika a kontext trhu.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#090A15",
-  "theme_color": "#090A15",
+  "background_color": "#0B0D12",
+  "theme_color": "#0B0D12",
   "lang": "sk",
   "icons": [
     {
