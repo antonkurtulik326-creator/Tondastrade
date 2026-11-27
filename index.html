@@ -439,6 +439,35 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 .crypto-loading{padding:15px;color:var(--muted);font-size:12px}
 @media(max-width:620px){.crypto-head,.crypto-row{grid-template-columns:minmax(84px,1.05fr) 66px repeat(3,55px) 62px;gap:5px}.crypto-row{padding:9px 7px}.crypto-name b{font-size:11px}.crypto-name small{font-size:9px}.crypto-price{font-size:10px}.tf-cell{padding:6px 2px}.tf-cell b,.tf-cell small{font-size:9px}.crypto-mtf b{font-size:10px}.crypto-head{font-size:9px;padding:7px 6px}.workspace-nav{left:7px;right:7px;bottom:calc(7px + env(safe-area-inset-bottom));padding:6px}.workspace-nav button{font-size:9px;min-height:54px}.workspace-nav button .nav-icon{font-size:19px}}
 
+
+/* Trade Radar v10: dedicated market / asset selector */
+.asset-page{display:flex;flex-direction:column;gap:14px}
+.asset-intro{padding:18px;border:1px solid rgba(190,196,210,.15);border-radius:18px;background:linear-gradient(135deg,rgba(185,167,248,.10),rgba(143,216,203,.06))}
+.asset-intro h2{margin:0 0 6px;font-size:22px}
+.asset-intro p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.asset-source{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.asset-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.asset-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;text-align:left;padding:14px;border-radius:15px;border:1px solid rgba(190,196,210,.14);background:linear-gradient(135deg,rgba(28,33,44,.92),rgba(17,21,29,.96));color:var(--fg);cursor:pointer}
+.asset-item:active{border-color:rgba(185,167,248,.7);transform:scale(.99)}
+.asset-item strong{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.asset-item small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.asset-open{font-size:11px;color:#B9A7F8;white-space:nowrap}
+.asset-empty{padding:16px;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+@media(max-width:620px){.asset-list{grid-template-columns:1fr}.asset-item{min-height:66px}}
+
+
+/* v11: timeframe and symbol controls belong only to the Overview screen */
+body:not(.is-overview) #searchrow,
+body:not(.is-overview) #tickers,
+body:not(.is-overview) #bpend,
+body:not(.is-overview) #dataBanner,
+body:not(.is-overview) #modeInfo{display:none!important}
+body.is-overview #searchrow,
+body.is-overview #tickers,
+body.is-overview #bpend,
+body.is-overview #dataBanner,
+body.is-overview #modeInfo{display:block}
+
 </style>
 
 </head><body>
@@ -524,6 +553,23 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   </div>
 
 
+
+  <div class="tab-view" id="tab-assets" role="tabpanel" hidden>
+    <div class="asset-page">
+      <div class="asset-intro">
+        <div class="eyebrow">TRADE RADAR · MARKET SELECTOR</div>
+        <h2 id="assetTitle">Výber trhu</h2>
+        <p id="assetDescription">Vyber si kryptomenu alebo akciu podľa aktívneho dátového zdroja. Po výbere sa otvorí hlavný prehľad s grafom a obchodným plánom.</p>
+      </div>
+      <div class="asset-source">
+        <span class="muted" id="assetSourceLabel">Aktívny dátový zdroj</span>
+        <button class="chip" type="button" id="assetRefresh">Obnoviť zoznam</button>
+      </div>
+      <div class="asset-list" id="assetList"><div class="asset-empty">Načítavam dostupné aktíva…</div></div>
+      <p class="note">Výber aktíva nemení obchod ani neodosiela pokyn brokerovi. Iba otvorí jeho analýzu v Trade Radar.</p>
+    </div>
+  </div>
+
   <div class="tab-view" id="tab-home" role="tabpanel" aria-labelledby="tabBtn-home">
     <section class="home-hero">
       <div class="eyebrow">TRADE RADAR · SIGNATURE EDITION</div>
@@ -532,6 +578,7 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
     </section>
     <div class="view-heading"><div><h2>Pracovný priestor</h2><p>Vyber sekciu, ktorú chceš otvoriť.</p></div></div>
     <div class="home-menu">
+<button class="home-card" type="button" data-go="assets"><span class="home-icon">◈</span><span><strong>Výber trhu</strong><small>Zoznam kryptomien alebo akcií podľa zdroja dát</small></span></button>
       <button class="home-card" type="button" data-go="overview"><span class="home-icon">▦</span><span><strong>Prehľad</strong><small>Trh, watchlist a účet</small></span></button>
       <button class="home-card" type="button" data-go="strategy"><span class="home-icon">⌁</span><span><strong>MTF analyzér</strong><small>Skóre LONG / SHORT a obchodný plán</small></span></button>
       <button class="home-card" type="button" data-go="backtest"><span class="home-icon">▤</span><span><strong>Backtest</strong><small>Výkonnosť a robustnosť stratégie</small></span></button>
@@ -1251,9 +1298,10 @@ function renderTickers(){
 /* v9: top 10 Binance USDT markets and parallel timeframe analysis */
 var cryptoTopBusy=false,cryptoTopAt=0,cryptoMtf={},cryptoMtfBusy={};
 function fetchTopCrypto(){
-  if(state.src!=='bn'||cryptoTopBusy||Date.now()-cryptoTopAt<300000)return;
+  if(state.src!=='bn'||Date.now()-cryptoTopAt<300000)return Promise.resolve();
+  if(cryptoTopBusy)return Promise.resolve();
   cryptoTopBusy=true;
-  fetch('https://data-api.binance.vision/api/v3/ticker/24hr').then(function(r){if(!r.ok)throw new Error('Binance nedostupná');return r.json();}).then(function(rows){
+  return fetch('https://data-api.binance.vision/api/v3/ticker/24hr').then(function(r){if(!r.ok)throw new Error('Binance nedostupná');return r.json();}).then(function(rows){
     var stable=['USDCUSDT','FDUSDUSDT','TUSDUSDT','USDPUSDT','DAIUSDT'];
     var ranked=rows.filter(function(x){return /USDT$/.test(x.symbol)&&!stable.includes(x.symbol)&&!/(UP|DOWN|BULL|BEAR)USDT$/.test(x.symbol)&&Number(x.lastPrice)>0;})
       .sort(function(a,b){return Number(b.quoteVolume)-Number(a.quoteVolume);}).slice(0,10);
@@ -1657,7 +1705,7 @@ function renderTradePlan(bars15,bars1,bars4,decision){
   $('openJournalFromPlan').addEventListener('click',function(){activateJournalTab();});
 }
 function activateJournalTab(){
-  var ids=['home','overview','strategy','backtest','journal','settings'];
+  var ids=['home','assets','overview','strategy','backtest','journal','settings'];
   ids.forEach(function(id){var v=$('tab-'+id),b=$('tabBtn-'+id);if(v)v.hidden=id!=='journal';if(b)b.setAttribute('aria-selected',String(id==='journal'));});
   try{localStorage.setItem('tr_active_tab','journal');}catch(e){}
   renderJournal();
@@ -2161,12 +2209,52 @@ function startTimers(){
   },3000);
 }
 
+
+/* v10: dedicated asset selection screen */
+function renderAssetSelector(){
+  var title=$('assetTitle'),desc=$('assetDescription'),srcLabel=$('assetSourceLabel'),list=$('assetList');
+  if(!title||!list)return;
+  var crypto=state.src==='bn';
+  title.textContent=crypto?'Vyber kryptomenu':'Vyber akciu alebo ETF';
+  desc.textContent=crypto
+    ?'Zoznam 10 najobchodovanejších kryptomien na Binance podľa 24-hodinového objemu. Vyber menu a otvor jej MTF analýzu, graf a obchodný plán.'
+    :'Zoznam sledovaných akcií a ETF podľa aktuálneho dátového zdroja. Vyber titul a otvor jeho MTF analýzu, graf a obchodný plán.';
+  srcLabel.textContent='Zdroj dát: '+(SRC[state.src]&&SRC[state.src].label?SRC[state.src].label:(crypto?'Binance · krypto':'Aktuálny zdroj'));
+  list.innerHTML='';
+  var items=(state.watch||[]).slice();
+  if(!items.length){
+    list.innerHTML='<div class="asset-empty">Zoznam sa ešte načítava. Skontroluj dátový zdroj v Nastaveniach.</div>';
+    return;
+  }
+  items.forEach(function(item){
+    var b=document.createElement('button');b.type='button';b.className='asset-item';
+    var displayName=item.n||item.s;
+    b.innerHTML='<span><strong>'+esc(item.s)+'</strong><small>'+esc(displayName)+'</small></span><span class="asset-open">Otvoriť analýzu →</span>';
+    b.addEventListener('click',function(){
+      state.sym=item.s;
+      try{lsSet('tr_sym_'+state.src,item.s);}catch(e){}
+      renderAll();
+      activateTradeRadarTab('overview');
+    });
+    list.appendChild(b);
+  });
+}
+function activateTradeRadarTab(name){
+  var btn=document.getElementById('tabBtn-'+name);
+  if(btn)btn.click();
+  else{
+    var view=document.getElementById('tab-'+name);
+    if(view){document.querySelectorAll('.tab-view').forEach(function(x){x.hidden=x!==view;});}
+  }
+}
+
 /* ---------- hlavná navigácia pracovného priestoru ---------- */
 (function(){
-  var ids=['home','overview','strategy','backtest','journal','settings'];
+  var ids=['home','assets','overview','strategy','backtest','journal','settings'];
   function activateTab(name,remember){
     if(ids.indexOf(name)<0)name='home';
     document.body.classList.toggle('is-home',name==='home');
+    document.body.classList.toggle('is-overview',name==='overview');
     ids.forEach(function(id){
       var view=document.getElementById('tab-'+id);
       var btn=document.getElementById('tabBtn-'+id);
@@ -2175,6 +2263,7 @@ function startTimers(){
     });
     if(remember){try{localStorage.setItem('tr_active_tab',name);}catch(e){}}
     if(name==='journal')renderJournal();
+    if(name==='assets'){renderAssetSelector();if(state.src==='bn'&&(!cryptoTopAt||Date.now()-cryptoTopAt>300000)){fetchTopCrypto().then(function(){renderAssetSelector();});}}
     if(name==='overview'||name==='backtest'){
       requestAnimationFrame(function(){
         if(window.redrawTradeRadar)window.redrawTradeRadar();
@@ -2202,6 +2291,7 @@ function startTimers(){
 })();
 
 if($('journalExport'))$('journalExport').addEventListener('click',exportJournal);
+if($('assetRefresh'))$('assetRefresh').addEventListener('click',function(){if(state.src==='bn'){cryptoTopAt=0;fetchTopCrypto().then(renderAssetSelector);}else{renderAssetSelector();}});
 
 function init(){
   renderJournal();

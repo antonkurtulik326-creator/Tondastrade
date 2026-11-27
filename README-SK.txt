@@ -116,3 +116,15 @@ TRADE RADAR SIGNATURE v9 – NOVINKY
 
 AKTUALIZÁCIA GITHUB PAGES
 Rozbaľ ZIP a nahraj obsah priečinka Trade-Radar-Signature-v8 do koreňového priečinka GitHub repozitára. Nahraď index.html, sw.js, manifest.webmanifest a ikony. Potom potvrď zmeny (Commit changes). Po aktualizácii obnov stránku; ak telefón stále ukazuje starú verziu, zavri aplikáciu, vymaž jej cache alebo ju odinštaluj a nainštaluj znova.
+
+
+VERZIA 10 – VÝBER TRHU
+- Samostatná obrazovka Výber trhu dostupná z hlavného Menu.
+- Pri Binance zobrazuje zoznam kryptomien; pri ostatných zdrojoch sledované akcie/ETF.
+- Výber aktíva otvorí Prehľad s grafom, MTF a obchodným plánom.
+- Spodná navigácia zostáva fixná.
+
+VERZIA 11 – TIMEFRAME LEN V PREHĽADE
+- Hlavička 15M / 1H / 4H a symbolové ovládanie sa zobrazujú iba v Prehľade.
+- Menu a ostatné sekcie sú bez duplicitných timeframe štítkov.
+- Opravená navigácia na samostatnú obrazovku Výber trhu.
