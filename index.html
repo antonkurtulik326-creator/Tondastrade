@@ -221,7 +221,7 @@ textarea{font-family:var(--font-mono);font-size:12px;color:var(--fg);background:
 footer{font-size:12px;color:var(--muted);max-width:80ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tk:hover{transform:none}}
 
-.mtf-state{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}
+.mtf-state{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0}
 .mtf-card{background:var(--surface2);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
 .mtf-card small{display:block;color:var(--muted);font-size:10px;letter-spacing:.05em}
 .mtf-card b{display:block;margin-top:5px;font-family:var(--font-mono);font-size:14px;overflow-wrap:anywhere}
@@ -239,7 +239,7 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 
 
 /* --- Professional workspace navigation --- */
-.workspace-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;background:rgba(18,20,43,.88);border:1px solid var(--line);border-radius:16px;position:sticky;top:8px;z-index:30;backdrop-filter:blur(14px)}
+.workspace-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;background:rgba(18,20,43,.88);border:1px solid var(--line);border-radius:16px;position:sticky;top:8px;z-index:30;backdrop-filter:blur(14px)}
 .workspace-nav button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);font:600 13px var(--font-body);padding:11px 8px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;transition:background .18s,border-color .18s,color .18s}
 .workspace-nav button .nav-icon{font-size:16px;line-height:1}
 .workspace-nav button[aria-selected="true"]{background:linear-gradient(135deg,rgba(39,243,255,.16),rgba(139,92,255,.16));border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));color:var(--fg);box-shadow:inset 0 0 0 1px rgba(39,243,255,.06)}
@@ -253,13 +253,88 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 .panel{padding:clamp(15px,2.2vw,22px);border-radius:17px}
 .two{gap:14px}
 @media(max-width:640px){
- .workspace-nav{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:5px;top:4px}
- .workspace-nav button{font-size:11px;padding:10px 3px;gap:4px;flex-direction:column}
- .workspace-nav button .nav-icon{font-size:17px}
+ .workspace-nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:5px;top:4px}
+ .workspace-nav button{font-size:10px;padding:9px 2px;gap:4px;flex-direction:column}
+ .workspace-nav button .nav-icon{font-size:16px}
  .top{align-items:flex-start}
  .top h1{font-size:27px}
  .tab-view{gap:13px}
 }
+
+
+/* Compact trading workspace */
+.panel{padding:clamp(11px,1.5vw,17px);border-radius:14px}
+.tab-view{gap:12px}
+.view-heading{margin-bottom:0}
+.two{gap:10px}
+.workspace-nav{padding:5px;gap:5px}
+.workspace-nav button{padding:8px 6px}
+.mchips{gap:5px}
+.lvgrid{gap:7px}
+.mtf-decision{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:9px;margin:12px 0}
+.mtf-recommend{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);min-height:112px}
+.mtf-recommend small{font-size:10px;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.mtf-recommend strong{font-size:32px;line-height:1;font-family:var(--font-mono);letter-spacing:.02em}
+.mtf-recommend span{font-size:12px;color:var(--muted)}
+.mtf-recommend.long{border-color:color-mix(in srgb,var(--lime) 60%,var(--line))}
+.mtf-recommend.long strong{color:var(--lime)}
+.mtf-recommend.short{border-color:color-mix(in srgb,var(--red) 60%,var(--line))}
+.mtf-recommend.short strong{color:var(--red)}
+.mtf-recommend.wait{border-color:color-mix(in srgb,var(--yellow) 55%,var(--line))}
+.mtf-recommend.wait strong{color:var(--yellow)}
+.mtf-context{display:grid;grid-template-columns:1fr;gap:6px}
+.mtf-context span{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);font-size:11px;color:var(--muted)}
+.mtf-context b{font-family:var(--font-mono);color:var(--fg)}
+.mtf-advanced{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.mtf-advanced summary{cursor:pointer;color:var(--cyan);font-size:12px;font-weight:700;list-style:none}
+.mtf-advanced summary::-webkit-details-marker{display:none}
+.mtf-advanced summary:after{content:"＋";float:right}
+.mtf-advanced[open] summary:after{content:"−"}
+@media(max-width:560px){
+ .mtf-decision{grid-template-columns:1fr}
+ .mtf-context{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .mtf-context span{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:7px}
+ .mtf-recommend{min-height:100px}
+ .panel{padding:11px}
+}
+
+
+/* Trade Plan + manual XTB journal */
+.trade-plan{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(39,243,255,.055),rgba(139,92,255,.07));padding:13px}
+.plan-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.plan-level{background:var(--surface2);border-radius:10px;padding:9px 10px;min-width:0}
+.plan-level small{display:block;color:var(--muted);font-size:10px;letter-spacing:.05em;text-transform:uppercase}
+.plan-level b{font-family:var(--font-mono);font-size:clamp(15px,2.2vw,19px);overflow-wrap:anywhere}
+.plan-level.entry b{color:var(--fg)}.plan-level.stop b{color:var(--red)}.plan-level.target b{color:var(--lime)}
+.plan-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}
+.plan-meta>div{background:rgba(0,0,0,.13);border-radius:9px;padding:8px 10px}
+.plan-meta small{display:block;color:var(--muted);font-size:10px}
+.plan-meta b{font-size:12px}
+.plan-scenarios{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.plan-scenarios>div{border-radius:10px;padding:9px 10px;background:var(--surface2);font-size:12px}
+.plan-scenarios .scenario-tp{border-left:3px solid var(--lime)}
+.plan-scenarios .scenario-sl{border-left:3px solid var(--red)}
+.plan-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.plan-actions button{font:inherit;font-weight:700;border-radius:999px;padding:9px 13px;cursor:pointer}
+.plan-save{background:var(--cyan);color:#04121A;border:0}
+.plan-journal{background:var(--surface2);color:var(--fg);border:1px solid var(--line)}
+.plan-foot{font-size:10px;color:var(--muted);margin:9px 0 0}
+.journal-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.journal-list{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.journal-item{border:1px solid var(--line);background:var(--surface2);border-radius:12px;padding:11px}
+.journal-item-head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.journal-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:8px}
+.journal-levels div{min-width:0}.journal-levels small{display:block;color:var(--muted);font-size:9px}.journal-levels b{font:600 12px var(--font-mono);overflow-wrap:anywhere}
+.journal-controls{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.journal-controls button{font:600 11px var(--font-body);border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);padding:6px 10px;cursor:pointer}
+.journal-controls button:hover{border-color:var(--cyan)}
+.journal-controls button.active{background:var(--cyan);color:#04121A;border-color:var(--cyan)}
+.journal-empty{color:var(--muted);font-size:13px;padding:14px;border:1px dashed var(--line);border-radius:12px}
+.journal-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:10px}
+.journal-stats>div{background:var(--surface2);border-radius:10px;padding:9px}
+.journal-stats small{display:block;color:var(--muted);font-size:10px}.journal-stats b{font:700 18px var(--font-mono)}
+@media(max-width:520px){.plan-grid{grid-template-columns:1fr 1fr}.plan-meta,.plan-scenarios{grid-template-columns:1fr 1fr}.journal-levels{grid-template-columns:repeat(2,minmax(0,1fr))}.journal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 </style>
 
@@ -289,7 +364,18 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
     <button type="button" role="tab" id="tabBtn-overview" aria-controls="tab-overview" aria-selected="true"><span class="nav-icon">▦</span><span>Prehľad</span></button>
     <button type="button" role="tab" id="tabBtn-strategy" aria-controls="tab-strategy" aria-selected="false"><span class="nav-icon">⌁</span><span>MTF stratégia</span></button>
     <button type="button" role="tab" id="tabBtn-backtest" aria-controls="tab-backtest" aria-selected="false"><span class="nav-icon">▥</span><span>Backtest</span></button>
+    <button type="button" role="tab" id="tabBtn-journal" aria-controls="tab-journal" aria-selected="false"><span class="nav-icon">▤</span><span>Obchodný denník</span></button>
     <button type="button" role="tab" id="tabBtn-settings" aria-controls="tab-settings" aria-selected="false"><span class="nav-icon">⚙</span><span>Nastavenia</span></button>
+  </div>
+
+  <div class="tab-view" id="tab-journal" role="tabpanel" aria-labelledby="tabBtn-journal" hidden>
+    <div class="view-heading"><div><h2>Obchodný denník</h2><p>Manuálne sledovanie signálov a obchodov, ktoré si skutočne zadal v XTB</p></div></div>
+    <section class="panel glow">
+      <div class="journal-toolbar"><h2 style="margin:0">Večerný prehľad</h2><button class="chip" id="journalExport" type="button">Export CSV</button></div>
+      <div class="journal-stats" id="journalStats"></div>
+      <div class="journal-list" id="journalList"><div class="journal-empty">Zatiaľ nemáš uložené žiadne signály. V MTF analýze si môžeš uložiť plán do denníka.</div></div>
+      <p class="plan-foot">Denník je uložený iba v tomto prehliadači. Stav a výsledok označuješ manuálne podľa svojho účtu XTB. Aplikácia nemá prístup k tvojim reálnym pozíciám.</p>
+    </section>
   </div>
 
   <div class="tab-view" id="tab-settings" role="tabpanel" aria-labelledby="tabBtn-settings" hidden>
@@ -406,16 +492,18 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   <section class="panel glow" id="mtfPanel">
     <h2>Multi-Timeframe Trading System <span class="sub">4H trend → 1H setup → 15M vstup</span></h2>
     <p class="note" style="margin-top:0">Toto je preferovaný obchodný plán, primárne pre 24/7 krypto trhy. 4H určuje smer trhu, 1H hľadá setup a 15M potvrdzuje načasovanie. Rozdielne signály nie sú automaticky chyba, ale vstup sa povolí len pri súlade všetkých troch úrovní. Pri akciách a ETF treba pred použitím správne zarovnať burzové obchodné seansy.</p>
-    <div class="mtf-state" id="mtfDecision"><div class="mtf-card"><small>4H · HLAVNÝ TREND</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>1H · SETUP</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>15M · POTVRDENIE</small><b>Čaká na analýzu</b></div><div class="mtf-card"><small>VÝSLEDNÉ ROZHODNUTIE</small><b>Spusti analýzu</b></div></div>
+    <div id="mtfDecision" class="mtf-decision"><div class="mtf-recommend wait"><small>MTF ODPORÚČANIE</small><strong>WAIT</strong><span>Spusti analýzu pre aktuálny symbol.</span></div><div class="mtf-context"><span>4H <b>—</b></span><span>1H <b>—</b></span><span>15M <b>—</b></span></div></div>
+    <div id="mtfTradePlan"></div>
     <div class="actions">
       <button class="btn" id="mtfRun" type="button">Analyzovať MTF systém</button>
       <span class="muted" id="mtfStatus" aria-live="polite">Zatiaľ nebol spustený.</span>
+      <button class="chip" id="mtfNotify" type="button">Povoliť MTF upozornenia</button>
     </div>
-    <h3 style="margin-top:18px;font-size:14px">Porovnanie troch obchodných prístupov</h3>
+    <details class="mtf-advanced"><summary>Rozšírené porovnanie stratégií A / B / C</summary><h3 style="margin-top:12px;font-size:14px">Historické porovnanie troch obchodných prístupov</h3>
     <div class="scroll" id="mtfResults" style="margin-top:8px">
       <p class="note">Spusti analýzu. Všetky tri varianty budú testované na rovnakom historickom úseku odvodenom z jedného radu 15M sviečok.</p>
     </div>
-    <p class="note">Variant A: samostatný 1H signál. Variant B: 1H signál iba v smere 4H trendu. Variant C: 4H trend + 1H setup + 15M potvrdenie. Všetky používajú 1H ATR pre SL, cieľ 2R, rovnaké náklady a rovnaký testovací interval. Pri menej ako 100 obchodoch sú štatistiky orientačné. CFD swap/financovanie nie je modelované.</p>
+    <p class="note">Variant A: samostatný 1H signál. Variant B: 1H signál iba v smere 4H trendu. Variant C: 4H trend + 1H setup + 15M potvrdenie. Všetky používajú 1H ATR pre SL, cieľ 2R, rovnaké náklady a rovnaký testovací interval. Pri menej ako 100 obchodoch sú štatistiky orientačné. Upozornenia fungujú pri povolených notifikáciách, keď aplikácia kontroluje trh; úplne zatvorená PWA potrebuje serverové Web Push doručovanie. CFD swap/financovanie nie je modelované.</p></details>
   </section>
 
 
@@ -1292,11 +1380,148 @@ function mtfDecisionCards(bars15,bars1,bars4){
   X15.htf.fill(0);X1.htf.fill(0);
   var now=Date.now(),i4=mtfFindClosed(bars4,now,4*60*60000),i1=mtfFindClosed(bars1,now,60*60000),i15=bars15.length-1;
   var trend=i4>=50?mtfTrend(X4,i4):0,s1=i1>=200?scoreAt(X1,i1).score:0,s15=i15>=200?scoreAt(X15,i15).score:0;
-  var d1=s1>=35?1:(s1<=-35?-1:0),d15=s15>=35?1:(s15<=-35?-1:0),go=trend!==0&&trend===d1&&d1===d15;
+  var d1=s1>=35?1:(s1<=-35?-1:0),d15=s15>=35?1:(s15<=-35?-1:0);
+  var decision=trend!==0&&trend===d1&&d1===d15?trend:0;
+  var word=decision>0?'LONG':decision<0?'SHORT':'WAIT';
+  var reason=decision>0?'4H trend, 1H setup a 15M potvrdenie súhlasí.':decision<0?'4H trend, 1H setup a 15M potvrdenie súhlasí.':'Timeframy nie sú v úplnom súlade alebo nie je dostatok potvrdení. Nevstupovať.';
+  var cls=decision>0?'long':decision<0?'short':'wait';
   var fmtDir=function(v){return v>0?'LONG':v<0?'SHORT':'NEUTRÁL';};
-  var cards=[{t:'4H · HLAVNÝ TREND',v:fmtDir(trend),c:trend?'good':'wait'},{t:'1H · SETUP',v:fmtDir(d1)+(i1<200?' · málo dát':''),c:d1?(d1===trend?'good':'bad'):'wait'},{t:'15M · POTVRDENIE',v:fmtDir(d15),c:d15?(d15===d1?'good':'bad'):'wait'},{t:'VÝSLEDNÉ ROZHODNUTIE',v:go?'VSTUP '+fmtDir(trend):'ČAKAŤ',c:go?'good':'wait'}];
-  $('mtfDecision').innerHTML=cards.map(function(x){return '<div class="mtf-card '+x.c+'"><small>'+x.t+'</small><b>'+x.v+'</b></div>';}).join('');
+  $('mtfDecision').innerHTML=
+    '<div class="mtf-recommend '+cls+'"><small>JEDNOZNAČNÉ MTF ODPORÚČANIE</small><strong>'+word+'</strong><span>'+reason+'</span></div>'+
+    '<div class="mtf-context"><span>4H <b>'+fmtDir(trend)+'</b></span><span>1H <b>'+fmtDir(d1)+'</b></span><span>15M <b>'+fmtDir(d15)+'</b></span></div>';
+  var key=state.sym+'|'+word+'|'+bars15[bars15.length-1].t;
+  var prior=lsGet('tr_mtf_last_notice','');
+  if(state.live&&decision!==0&&prior!==key&&'Notification' in window&&Notification.permission==='granted'){
+    try{
+      var title='Trade Radar · MTF '+word;
+      var body=(state.sym||'Symbol')+' · 4H + 1H + 15M potvrdené. '+reason;
+      if(navigator.serviceWorker&&navigator.serviceWorker.getRegistration){
+        navigator.serviceWorker.getRegistration().then(function(reg){if(reg&&reg.showNotification)reg.showNotification(title,{body:body,icon:'icon-192.png',badge:'icon-192.png',tag:'mtf-'+state.sym,data:{url:'./'}});else new Notification(title,{body:body});}).catch(function(){try{new Notification(title,{body:body});}catch(e){}});
+      }else new Notification(title,{body:body});
+    }catch(e){}
+    lsSet('tr_mtf_last_notice',key);
+  }
+  return {decision:word,trend:trend,setup:d1,confirm:d15,score1h:s1,score15m:s15};
 }
+
+/* ---------- obchodny plan a manualny XTB dennik ---------- */
+function journalRead(){
+  try{var x=JSON.parse(lsGet('tr_trade_journal_v1','[]'));return Array.isArray(x)?x:[];}catch(e){return [];}
+}
+function journalWrite(rows){lsSet('tr_trade_journal_v1',JSON.stringify(rows));}
+function moneyFmt(v){
+  if(v==null||!isFinite(v))return '—';
+  return Number(v).toLocaleString('sk-SK',{maximumFractionDigits:v>=100?2:5});
+}
+function estimateHours(distance,atr){
+  if(!(distance>0&&atr>0))return null;
+  /* ATR-based range estimate only, not a calibrated probability or promise. */
+  var candles=distance/atr;
+  return {min:Math.max(1,Math.round(candles*0.75)),max:Math.max(2,Math.round(candles*1.8))};
+}
+function renderTradePlan(bars15,bars1,bars4,decision){
+  var host=$('mtfTradePlan');
+  if(!host)return;
+  if(!decision||decision.decision==='WAIT'){
+    host.innerHTML='<div class="trade-plan"><b>Obchodný plán zatiaľ nie je pripravený</b><p class="plan-foot">Čakáme na súlad 4H trendu, 1H setupu a 15M potvrdenia. Pri WAIT sa nevytvárajú vstupné úrovne.</p></div>';
+    return;
+  }
+  var side=decision.decision==='LONG'?1:-1;
+  var X1=prep(bars1,'day');X1.htf.fill(0);
+  var i=bars1.length-1,bar=bars1[i],L=levelsAt(X1,i,side);
+  if(!bar||!isFinite(L.risk)||L.risk<=0){host.innerHTML='<div class="trade-plan">Nepodarilo sa vypočítať bezpečné úrovne.</div>';return;}
+  var entry=bar.c,sl=L.sl,risk=Math.abs(entry-sl);
+  var tp1=L.tp1,tp2=entry+side*risk*2,tp3=entry+side*risk*3;
+  var atr=X1.A[i]||risk,now=Date.now(),expiry=now+24*60*60*1000;
+  var h1=estimateHours(Math.abs(tp1-entry),atr),h2=estimateHours(Math.abs(tp2-entry),atr),h3=estimateHours(Math.abs(tp3-entry),atr),hs=estimateHours(Math.abs(entry-sl),atr);
+  var range=function(x){return x?x.min+'–'+x.max+' h':'nedostupný';};
+  var when=function(h){return h?'≈ '+range(h):'nedostupný';};
+  var dateFmt=function(t){return new Date(t).toLocaleString('sk-SK',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});};
+  var plan={
+    id:'mtf-'+state.sym+'-'+now, symbol:state.sym, direction:decision.decision,
+    entry:entry,sl:sl,tp1:tp1,tp2:tp2,tp3:tp3,risk:risk,
+    createdAt:now,expiresAt:expiry,holdMin:1,holdMax:24,
+    estimate1: h1?range(h1):'—',estimate2:h2?range(h2):'—',estimate3:h3?range(h3):'—',estimateSL:hs?range(hs):'—',
+    source:state.src, used:false, status:'Čaká na tvoje vyhodnotenie', result:''
+  };
+  window.tradeRadarCurrentPlan=plan;
+  host.innerHTML=
+    '<section class="trade-plan">'+
+      '<div class="plan-head"><b>OBCHODNÝ PLÁN · '+esc(plan.symbol)+'</b><span class="pill '+(side>0?'long':'short')+'">'+plan.direction+'</span></div>'+
+      '<div class="plan-grid">'+
+        '<div class="plan-level entry"><small>ENTRY · orientačný vstup</small><b>'+moneyFmt(entry)+'</b></div>'+
+        '<div class="plan-level stop"><small>STOP LOSS</small><b>'+moneyFmt(sl)+'</b></div>'+
+        '<div class="plan-level target"><small>TAKE PROFIT 1</small><b>'+moneyFmt(tp1)+'</b></div>'+
+        '<div class="plan-level target"><small>TAKE PROFIT 2</small><b>'+moneyFmt(tp2)+'</b></div>'+
+        '<div class="plan-level target"><small>TAKE PROFIT 3</small><b>'+moneyFmt(tp3)+'</b></div>'+
+        '<div class="plan-level"><small>RIZIKO / 1R</small><b>'+moneyFmt(risk)+'</b></div>'+
+      '</div>'+
+      '<div class="plan-meta">'+
+        '<div><small>Odhad k TP1</small><b>'+when(h1)+'</b></div>'+
+        '<div><small>Odhad k TP2</small><b>'+when(h2)+'</b></div>'+
+        '<div><small>Odhad k TP3</small><b>'+when(h3)+'</b></div>'+
+        '<div><small>Odhad k SL</small><b>'+when(hs)+'</b></div>'+
+        '<div><small>Časový horizont</small><b>Najviac 24 h · do '+dateFmt(expiry)+'</b></div>'+
+      '</div>'+
+      '<div class="plan-scenarios"><div class="scenario-tp"><b class="ok">SCENÁR A · TP</b><br>Trh sa pohne v smere signálu a zasiahne jeden z cieľov. Sleduj postupne TP1 až TP3.</div><div class="scenario-sl"><b class="bad">SCENÁR B · SL</b><br>Trh sa pohne proti signálu a zasiahne stop-loss. Plán je neplatný.</div></div>'+
+      '<div class="plan-actions"><button class="plan-save" id="saveMtfPlan" type="button">Uložiť signál do denníka</button><button class="plan-journal" id="openJournalFromPlan" type="button">Otvoriť denník</button></div>'+
+      '<p class="plan-foot">Časové odhady vychádzajú z aktuálneho 1H ATR a sú iba orientačné. Nejde o pravdepodobnosť zásahu TP/SL. ENTRY je posledná uzavretá cena, nie garantovaná realizačná cena. Pred zadaním príkazu skontroluj spread, financovanie CFD a cenu v XTB.</p>'+
+    '</section>';
+  $('saveMtfPlan').addEventListener('click',function(){
+    var rows=journalRead();
+    if(rows.some(function(x){return x.id===plan.id;})){alert('Tento signál už je v denníku.');return;}
+    rows.unshift(plan);journalWrite(rows);renderJournal();
+    $('saveMtfPlan').textContent='Uložené v denníku';$('saveMtfPlan').disabled=true;
+  });
+  $('openJournalFromPlan').addEventListener('click',function(){activateJournalTab();});
+}
+function activateJournalTab(){
+  var ids=['overview','strategy','backtest','journal','settings'];
+  ids.forEach(function(id){var v=$('tab-'+id),b=$('tabBtn-'+id);if(v)v.hidden=id!=='journal';if(b)b.setAttribute('aria-selected',String(id==='journal'));});
+  try{localStorage.setItem('tr_active_tab','journal');}catch(e){}
+  renderJournal();
+}
+function updateJournalItem(id,field,value){
+  var rows=journalRead(),item=rows.find(function(x){return x.id===id;});
+  if(!item)return;item[field]=value;journalWrite(rows);renderJournal();
+}
+function renderJournal(){
+  var host=$('journalList');if(!host)return;
+  var rows=journalRead(),stats=$('journalStats');
+  var used=rows.filter(function(x){return x.used;}).length;
+  var done=rows.filter(function(x){return ['TP1','TP2','TP3','SL','Ručne zatvorený','Expiroval'].indexOf(x.result)>=0;}).length;
+  var wins=rows.filter(function(x){return ['TP1','TP2','TP3'].indexOf(x.result)>=0;}).length;
+  var losses=rows.filter(function(x){return x.result==='SL';}).length;
+  stats.innerHTML='<div><small>Uložené signály</small><b>'+rows.length+'</b></div><div><small>Využité v XTB</small><b>'+used+'</b></div><div><small>TP výsledky</small><b class="ok">'+wins+'</b></div><div><small>SL výsledky</small><b class="bad">'+losses+'</b></div>';
+  if(!rows.length){host.innerHTML='<div class="journal-empty">Zatiaľ nemáš uložené žiadne signály. V MTF analýze si môžeš uložiť plán do denníka.</div>';return;}
+  host.innerHTML=rows.map(function(x){
+    var cls=x.direction==='LONG'?'long':'short';
+    var status=x.result||x.status||'Čaká na vyhodnotenie';
+    return '<article class="journal-item" data-id="'+esc(x.id)+'">'+
+      '<div class="journal-item-head"><div><b>'+esc(x.symbol)+'</b> <span class="pill '+cls+'">'+esc(x.direction)+'</span></div><small class="muted">'+new Date(x.createdAt).toLocaleString('sk-SK')+'</small></div>'+
+      '<div class="journal-levels"><div><small>ENTRY</small><b>'+moneyFmt(x.entry)+'</b></div><div><small>SL</small><b class="bad">'+moneyFmt(x.sl)+'</b></div><div><small>TP1</small><b class="ok">'+moneyFmt(x.tp1)+'</b></div><div><small>Platnosť do</small><b>'+new Date(x.expiresAt).toLocaleString('sk-SK',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+'</b></div></div>'+
+      '<div class="journal-controls"><button data-action="used" class="'+(x.used?'active':'')+'"> '+(x.used?'✓ Využil som v XTB':'Označiť ako využitý v XTB')+'</button>'+
+      '<button data-action="TP1">TP1</button><button data-action="TP2">TP2</button><button data-action="TP3">TP3</button><button data-action="SL">SL</button><button data-action="Ručne zatvorený">Zatvorený</button><button data-action="Expiroval">Expiroval</button><button data-action="remove">Odstrániť</button></div>'+
+      '<small class="muted">Stav: '+esc(status)+(x.result?' · Výsledok: '+esc(x.result):'')+'</small></article>';
+  }).join('');
+  host.querySelectorAll('button[data-action]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.journal-item'),id=card.getAttribute('data-id'),action=btn.getAttribute('data-action');
+      if(action==='remove'){if(confirm('Odstrániť tento záznam z denníka?')){journalWrite(journalRead().filter(function(x){return x.id!==id;}));renderJournal();}return;}
+      var item=journalRead().find(function(x){return x.id===id;});if(!item)return;
+      if(action==='used')updateJournalItem(id,'used',!item.used);
+      else {updateJournalItem(id,'result',action);updateJournalItem(id,'status',action==='Ručne zatvorený'?'Ručne uzavretý':action);}
+    });
+  });
+}
+function exportJournal(){
+  var rows=journalRead();if(!rows.length){alert('Denník je prázdny.');return;}
+  var cols=['symbol','direction','entry','sl','tp1','tp2','tp3','createdAt','expiresAt','used','result'];
+  var csv=[cols.join(';')].concat(rows.map(function(x){return cols.map(function(k){return '"'+String(x[k]==null?'':x[k]).replace(/"/g,'""')+'"';}).join(';');})).join('\n');
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='trade-radar-dennik.csv';a.click();URL.revokeObjectURL(url);
+}
+
 function renderMtfRows(rows,period){
   var html='<table class="mtf-table"><thead><tr><th>Stratégia</th><th>Obchody</th><th>Win rate</th><th>Profit factor</th><th>Priem. R</th><th>Max. DD</th><th>OOS obchody</th><th>OOS priem. R</th></tr></thead><tbody>';
   rows.forEach(function(r){var s=r.stats,o=r.oos,enough=s.n>=100;
@@ -1316,6 +1541,12 @@ function mtfFetchBinance(symbol){
   }
   return next().then(function(rows){var seen={};return rows.map(function(k){return {t:fmt(new Date(+k[0]),15),ts:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]};}).filter(function(b){if(seen[b.ts])return false;seen[b.ts]=1;return b.ts+15*60000<=Date.now();}).sort(function(a,b){return a.ts-b.ts;});});
 }
+$('mtfNotify').addEventListener('click',function(){
+  if(!('Notification' in window)){ $('mtfStatus').textContent='Tento prehliadač nepodporuje systémové upozornenia.';return; }
+  Notification.requestPermission().then(function(p){
+    $('mtfStatus').textContent=p==='granted'?'MTF upozornenia povolené. Pri otvorenej aplikácii sa zobrazí upozornenie pri novom potvrdenom LONG/SHORT.':'Upozornenia neboli povolené.';
+  });
+});
 $('mtfRun').addEventListener('click',function(){
   var btn=$('mtfRun'),status=$('mtfStatus'),sym=state.sym,src=state.src;
   if(sym==='CUSTOM'){status.textContent='CSV obsahuje iba jeden timeframe a nemá spoľahlivo označený interval. Nahraj 15M CSV alebo vyber live symbol.';return;}
@@ -1345,7 +1576,8 @@ $('mtfRun').addEventListener('click',function(){
       Object.assign({label:'B · 1H signál + filter 4H'},mtfBacktest1h(X1,X4,true,commonStart,splitTs)),
       Object.assign({label:'C · 4H + 1H + potvrdenie 15M'},mtfBacktestFull(X15,X1,X4,commonStart,splitTs))
     ];
-    mtfDecisionCards(bars15,bars1,bars4);
+    var mtfDecision=mtfDecisionCards(bars15,bars1,bars4);
+    renderTradePlan(bars15,bars1,bars4,mtfDecision);
     var from=new Date(commonStart).toLocaleDateString('sk-SK'),to=new Date(endTime).toLocaleDateString('sk-SK');
     renderMtfRows(rows,from+' – '+to);
     var best=rows.slice().sort(function(a,b){return b.stats.avgR-a.stats.avgR;})[0];
@@ -1750,7 +1982,7 @@ function startTimers(){
 
 /* ---------- hlavná navigácia pracovného priestoru ---------- */
 (function(){
-  var ids=['overview','strategy','backtest','settings'];
+  var ids=['overview','strategy','backtest','journal','settings'];
   function activateTab(name,remember){
     if(ids.indexOf(name)<0)name='overview';
     ids.forEach(function(id){
@@ -1760,6 +1992,7 @@ function startTimers(){
       if(btn)btn.setAttribute('aria-selected',String(id===name));
     });
     if(remember){try{localStorage.setItem('tr_active_tab',name);}catch(e){}}
+    if(name==='journal')renderJournal();
     if(name==='overview'||name==='backtest'){
       requestAnimationFrame(function(){
         if(window.redrawTradeRadar)window.redrawTradeRadar();
@@ -1783,7 +2016,10 @@ function startTimers(){
   activateTab(initial,false);
 })();
 
+if($('journalExport'))$('journalExport').addEventListener('click',exportJournal);
+
 function init(){
+  renderJournal();
   renderAll();
   if(state.sandbox)return;
   wakeSync();

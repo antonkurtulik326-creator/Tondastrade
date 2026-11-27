@@ -77,3 +77,13 @@ NOVÉ ROZHRANIE (v4)
 - Backtest obsahuje historické metriky, equity krivku, posledné obchody a vysvetlenie signálu.
 - Nastavenia obsahujú dátový zdroj, upozornenia a import vlastných CSV dát.
 - Aktívna sekcia sa pamätá v tomto prehliadači. Pri aktualizácii treba nahrať celý obsah ZIP do koreňového priečinka GitHub Pages.
+
+
+VERZIA v6 – OBCHODNÝ PLÁN A DENNÍK
+- MTF panel po analýze zobrazí LONG/SHORT plán s ENTRY, SL a TP1–TP3.
+- Časový odhad k cieľom vychádza z 1H ATR; je orientačný, nie garancia.
+- Horizont plánu je 24 hodín. Aplikácia sama príkazy nezadáva ani nezatvára.
+- Nová sekcia Obchodný denník umožňuje uložiť signál, označiť využitie v XTB a manuálne zaznamenať TP/SL/uzavretie/expiráciu.
+- Denník je lokálny v prehliadači a možno ho exportovať do CSV.
+- Aplikácia nemá prístup k reálnym pozíciám XTB. Výsledky musí používateľ označiť podľa účtu.
+- Pravdepodobnosti TP/SL sa nezobrazujú, kým nie sú spoľahlivo kalibrované na historických dátach.
