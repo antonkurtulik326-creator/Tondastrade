@@ -1,13 +1,13 @@
 {
   "name": "Trade Radar – nákupné signály",
   "short_name": "Trade Radar",
-  "description": "Skener nákupných signálov s obchodným plánom a overením na histórii.",
+  "description": "Nákupné signály pre krypto, ETF a akcie – Fibonacci, EMA, RSI, MACD, Bollinger, ADX, VWAP. S plánom a backtestom.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0b0e",
-  "theme_color": "#0a0b0e",
+  "background_color": "#050506",
+  "theme_color": "#050506",
   "lang": "sk",
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},

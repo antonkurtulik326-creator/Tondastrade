@@ -1,5 +1,5 @@
-const CACHE='trade-radar-v2.0';
-const SHELL=['./','index.html','style.css','engine.js','app.js','manifest.webmanifest','icon-192.png','icon-512.png'];
+const CACHE='trade-radar-v3.0';
+const SHELL=['./','index.html','style.css','engine.js','app.js','manifest.webmanifest','icon-192.png','icon-512.png','mark.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(cs=>{for(const c of cs){if('focus' in c)return c.focus();}return self.clients.openWindow('./');}));});
