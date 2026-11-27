@@ -239,7 +239,8 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 
 
 /* --- Professional workspace navigation --- */
-.workspace-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;background:rgba(18,20,43,.88);border:1px solid var(--line);border-radius:16px;position:sticky;top:8px;z-index:30;backdrop-filter:blur(14px)}
+.nav-caption{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--muted);margin:12px 2px 5px}
+.workspace-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px;background:rgba(18,20,43,.88);border:1px solid var(--line);border-radius:16px;position:sticky;top:4px;z-index:50;backdrop-filter:blur(14px)}
 .workspace-nav button{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);font:600 13px var(--font-body);padding:11px 8px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;transition:background .18s,border-color .18s,color .18s}
 .workspace-nav button .nav-icon{font-size:16px;line-height:1}
 .workspace-nav button[aria-selected="true"]{background:linear-gradient(135deg,rgba(39,243,255,.16),rgba(139,92,255,.16));border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));color:var(--fg);box-shadow:inset 0 0 0 1px rgba(39,243,255,.06)}
@@ -307,6 +308,7 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
 .plan-level small{display:block;color:var(--muted);font-size:10px;letter-spacing:.05em;text-transform:uppercase}
 .plan-level b{font-family:var(--font-mono);font-size:clamp(15px,2.2vw,19px);overflow-wrap:anywhere}
 .plan-level.entry b{color:var(--fg)}.plan-level.stop b{color:var(--red)}.plan-level.target b{color:var(--lime)}
+.hold-duration{margin-top:10px;padding:12px;border-radius:11px;background:rgba(39,243,255,.08);border:1px solid color-mix(in srgb,var(--cyan) 40%,var(--line));display:flex;flex-direction:column;gap:3px}.hold-duration small{font-size:10px;letter-spacing:.1em;color:var(--muted);font-weight:800}.hold-duration strong{font:700 22px var(--font-mono);color:var(--cyan)}.hold-duration span{font-size:10px;color:var(--muted)}
 .plan-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}
 .plan-meta>div{background:rgba(0,0,0,.13);border-radius:9px;padding:8px 10px}
 .plan-meta small{display:block;color:var(--muted);font-size:10px}
@@ -349,6 +351,15 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   </header>
   <div class="modeinfo mono" id="modeInfo"></div>
 
+  <div class="nav-caption">HLAVNÉ MENU</div>
+  <div class="workspace-nav" role="tablist" aria-label="Hlavná navigácia">
+    <button type="button" role="tab" id="tabBtn-overview" aria-controls="tab-overview" aria-selected="true"><span class="nav-icon">▦</span><span>Prehľad</span></button>
+    <button type="button" role="tab" id="tabBtn-strategy" aria-controls="tab-strategy" aria-selected="false"><span class="nav-icon">⌁</span><span>MTF stratégia</span></button>
+    <button type="button" role="tab" id="tabBtn-backtest" aria-controls="tab-backtest" aria-selected="false"><span class="nav-icon">▥</span><span>Backtest</span></button>
+    <button type="button" role="tab" id="tabBtn-journal" aria-controls="tab-journal" aria-selected="false"><span class="nav-icon">▤</span><span>Obchodný denník</span></button>
+    <button type="button" role="tab" id="tabBtn-settings" aria-controls="tab-settings" aria-selected="false"><span class="nav-icon">⚙</span><span>Nastavenia</span></button>
+  </div>
+
   <div class="searchrow" id="searchrow">
     <div class="inwrap"><span aria-hidden="true">⌕</span><input id="q" type="search" autocomplete="off" spellcheck="false" aria-label="Hľadať ticker alebo firmu"></div>
     <div class="addrow"><span>Pridať ako</span><div class="seg sm" id="addSeg" role="group" aria-label="Typ pridávaného nástroja"></div></div>
@@ -360,13 +371,7 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   <section class="board" id="tickers" aria-label="Signály podľa zoznamu obľúbených"></section>
   <div class="bpend" id="bpend"></div>
   <div class="banner" id="dataBanner"></div>
-  <div class="workspace-nav" role="tablist" aria-label="Hlavná navigácia">
-    <button type="button" role="tab" id="tabBtn-overview" aria-controls="tab-overview" aria-selected="true"><span class="nav-icon">▦</span><span>Prehľad</span></button>
-    <button type="button" role="tab" id="tabBtn-strategy" aria-controls="tab-strategy" aria-selected="false"><span class="nav-icon">⌁</span><span>MTF stratégia</span></button>
-    <button type="button" role="tab" id="tabBtn-backtest" aria-controls="tab-backtest" aria-selected="false"><span class="nav-icon">▥</span><span>Backtest</span></button>
-    <button type="button" role="tab" id="tabBtn-journal" aria-controls="tab-journal" aria-selected="false"><span class="nav-icon">▤</span><span>Obchodný denník</span></button>
-    <button type="button" role="tab" id="tabBtn-settings" aria-controls="tab-settings" aria-selected="false"><span class="nav-icon">⚙</span><span>Nastavenia</span></button>
-  </div>
+
 
   <div class="tab-view" id="tab-journal" role="tabpanel" aria-labelledby="tabBtn-journal" hidden>
     <div class="view-heading"><div><h2>Obchodný denník</h2><p>Manuálne sledovanie signálov a obchodov, ktoré si skutočne zadal v XTB</p></div></div>
@@ -490,12 +495,12 @@ footer{font-size:12px;color:var(--muted);max-width:80ch}
   <div class="tab-view" id="tab-strategy" role="tabpanel" aria-labelledby="tabBtn-strategy" hidden>
     <div class="view-heading"><div><h2>Multi-timeframe stratégia</h2><p>4H určuje smer · 1H hľadá setup · 15M časuje vstup</p></div></div>
   <section class="panel glow" id="mtfPanel">
-    <h2>Multi-Timeframe Trading System <span class="sub">4H trend → 1H setup → 15M vstup</span></h2>
+    <h2>MTF odporúčanie <span class="sub">4H trend → 1H setup → 15M potvrdenie</span></h2>
     <p class="note" style="margin-top:0">Toto je preferovaný obchodný plán, primárne pre 24/7 krypto trhy. 4H určuje smer trhu, 1H hľadá setup a 15M potvrdzuje načasovanie. Rozdielne signály nie sú automaticky chyba, ale vstup sa povolí len pri súlade všetkých troch úrovní. Pri akciách a ETF treba pred použitím správne zarovnať burzové obchodné seansy.</p>
     <div id="mtfDecision" class="mtf-decision"><div class="mtf-recommend wait"><small>MTF ODPORÚČANIE</small><strong>WAIT</strong><span>Spusti analýzu pre aktuálny symbol.</span></div><div class="mtf-context"><span>4H <b>—</b></span><span>1H <b>—</b></span><span>15M <b>—</b></span></div></div>
     <div id="mtfTradePlan"></div>
     <div class="actions">
-      <button class="btn" id="mtfRun" type="button">Analyzovať MTF systém</button>
+      <button class="btn" id="mtfRun" type="button">VYPOČÍTAŤ MTF ODPORÚČANIE</button>
       <span class="muted" id="mtfStatus" aria-live="polite">Zatiaľ nebol spustený.</span>
       <button class="chip" id="mtfNotify" type="button">Povoliť MTF upozornenia</button>
     </div>
@@ -1387,7 +1392,7 @@ function mtfDecisionCards(bars15,bars1,bars4){
   var cls=decision>0?'long':decision<0?'short':'wait';
   var fmtDir=function(v){return v>0?'LONG':v<0?'SHORT':'NEUTRÁL';};
   $('mtfDecision').innerHTML=
-    '<div class="mtf-recommend '+cls+'"><small>JEDNOZNAČNÉ MTF ODPORÚČANIE</small><strong>'+word+'</strong><span>'+reason+'</span></div>'+
+    '<div class="mtf-recommend '+cls+'"><small>JEDNOTNÉ MTF ODPORÚČANIE</small><strong>'+word+'</strong><span>'+reason+'</span></div>'+
     '<div class="mtf-context"><span>4H <b>'+fmtDir(trend)+'</b></span><span>1H <b>'+fmtDir(d1)+'</b></span><span>15M <b>'+fmtDir(d15)+'</b></span></div>';
   var key=state.sym+'|'+word+'|'+bars15[bars15.length-1].t;
   var prior=lsGet('tr_mtf_last_notice','');
@@ -1423,7 +1428,7 @@ function renderTradePlan(bars15,bars1,bars4,decision){
   var host=$('mtfTradePlan');
   if(!host)return;
   if(!decision||decision.decision==='WAIT'){
-    host.innerHTML='<div class="trade-plan"><b>Obchodný plán zatiaľ nie je pripravený</b><p class="plan-foot">Čakáme na súlad 4H trendu, 1H setupu a 15M potvrdenia. Pri WAIT sa nevytvárajú vstupné úrovne.</p></div>';
+    host.innerHTML='<div class="trade-plan"><div class="plan-head"><b>OBCHODNÝ PLÁN</b><span class="pill wait">WAIT</span></div><b>Odporúčaná dĺžka držania: neurčená</b><p class="plan-foot">Pri WAIT nie je platný smer obchodu, preto aplikácia nevypočíta ENTRY, SL, TP ani čas držania. Spusti analýzu po načítaní dát a počkaj na súlad 4H, 1H a 15M.</p></div>';
     return;
   }
   var side=decision.decision==='LONG'?1:-1;
@@ -1456,11 +1461,11 @@ function renderTradePlan(bars15,bars1,bars4,decision){
         '<div class="plan-level target"><small>TAKE PROFIT 3</small><b>'+moneyFmt(tp3)+'</b></div>'+
         '<div class="plan-level"><small>RIZIKO / 1R</small><b>'+moneyFmt(risk)+'</b></div>'+
       '</div>'+
+      '<div class="hold-duration"><small>ODPORÚČANÁ DĹŽKA DRŽANIA</small><strong>'+when(h1)+'</strong><span>orientačne podľa 1H ATR, cieľ TP1</span></div>'+
       '<div class="plan-meta">'+
         '<div><small>Odhad k TP1</small><b>'+when(h1)+'</b></div>'+
         '<div><small>Odhad k TP2</small><b>'+when(h2)+'</b></div>'+
-        '<div><small>Odhad k TP3</small><b>'+when(h3)+'</b></div>'+
-        '<div><small>Odhad k SL</small><b>'+when(hs)+'</b></div>'+
+        '<div><small>Odhad k TP3</small><b>'+when(h3)+'</b></div>'+\n        '<div><small>Odhad k SL</small><b>'+when(hs)+'</b></div>'+
         '<div><small>Časový horizont</small><b>Najviac 24 h · do '+dateFmt(expiry)+'</b></div>'+
       '</div>'+
       '<div class="plan-scenarios"><div class="scenario-tp"><b class="ok">SCENÁR A · TP</b><br>Trh sa pohne v smere signálu a zasiahne jeden z cieľov. Sleduj postupne TP1 až TP3.</div><div class="scenario-sl"><b class="bad">SCENÁR B · SL</b><br>Trh sa pohne proti signálu a zasiahne stop-loss. Plán je neplatný.</div></div>'+

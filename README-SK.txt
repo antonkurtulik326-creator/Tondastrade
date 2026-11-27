@@ -87,3 +87,9 @@ VERZIA v6 – OBCHODNÝ PLÁN A DENNÍK
 - Denník je lokálny v prehliadači a možno ho exportovať do CSV.
 - Aplikácia nemá prístup k reálnym pozíciám XTB. Výsledky musí používateľ označiť podľa účtu.
 - Pravdepodobnosti TP/SL sa nezobrazujú, kým nie sú spoľahlivo kalibrované na historických dátach.
+
+VERZIA v7 – OPRAVA NAVIGÁCIE A MTF PANELU
+- Hlavné menu je presunuté hneď pod hlavičku, pred trhové karty.
+- MTF sekcia má jednotný panel odporúčania LONG / SHORT / WAIT.
+- Pri potvrdenom LONG/SHORT sa zobrazuje výrazná odporúčaná dĺžka držania a odhady k TP1–TP3 a SL.
+- Pri WAIT sa výslovne uvádza, že čas držania nie je určený, pretože nie je platný obchodný smer.
